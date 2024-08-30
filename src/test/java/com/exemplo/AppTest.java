@@ -1,4 +1,4 @@
-package com.compiladores;
+package com.exemplo;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

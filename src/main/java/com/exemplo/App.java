@@ -1,4 +1,4 @@
-package com.compiladores;
+package com.exemplo;
 
 /**
  * Hello world!
