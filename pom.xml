@@ -33,10 +33,31 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.1.0</version> <!-- Usando a versão 3.1.0 -->
+        <version>1.6.0</version> <!-- Versão conhecida e estável -->
         <configuration>
-          <mainClass>com.exemplo.App</mainClass> <!-- Substitua pela sua classe principal -->
+          <mainClass>com.exemplo.App</mainClass> <!-- Nome completo da classe principal -->
         </configuration>
+      </plugin>
+
+      <!-- Plugin do JavaCC para gerar o código do analisador -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javacc-maven-plugin</artifactId>
+        <version>2.6</version> <!-- Versão conhecida e estável -->
+        <executions>
+          <execution>
+            <goals>
+              <goal>javacc</goal>
+            </goals>
+            <phase>generate-sources</phase>
+            <configuration>
+              <sourceDirectory>${project.basedir}/src/main/javacc</sourceDirectory>
+              <includes>
+                <include>**/*.jj</include> <!-- Inclui todos os arquivos .jj -->
+              </includes>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -48,5 +69,6 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 </project>
