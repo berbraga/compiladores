@@ -10,4 +10,5 @@ public class App
     {
         System.out.println( "Hello World!" );
     }
+    // paginas de codigo do livro interessantes para o Analizador Lexico(AL): 55
 }
