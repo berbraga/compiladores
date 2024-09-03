@@ -177,9 +177,19 @@ public class CompiladorGui extends javax.swing.JFrame {
 
         ButtonCompilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/Images/icons8-code-25.png"))); // NOI18N
         ButtonCompilar.setBorder(null);
+        ButtonCompilar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCompilarActionPerformed(evt);
+            }
+        });
 
         ButtonExecutar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/Images/icons8-play-25.png"))); // NOI18N
         ButtonExecutar.setBorder(null);
+        ButtonExecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonExecutarActionPerformed(evt);
+            }
+        });
 
         TextArea.setBackground(new java.awt.Color(51, 51, 51));
         TextArea.setColumns(20);
@@ -363,9 +373,19 @@ public class CompiladorGui extends javax.swing.JFrame {
 
         MenuItemCompilar.setText("Compilar");
         jMenu3.add(MenuItemCompilar);
+        MenuItemCompilar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemCompilarActionPerformed(evt);
+            }
+        });
 
         MenuItemExecutar.setText("Executar");
         jMenu3.add(MenuItemExecutar);
+        MenuItemExecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemExecutarActionPerformed(evt);
+            }
+        });
 
         jMenuBar1.add(jMenu3);
 
@@ -384,6 +404,20 @@ public class CompiladorGui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ButtonExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExecutarActionPerformed
+        // TODO add your handling code here:
+
+        System.out.println("Executou");
+
+    }//GEN-LAST:event_ButtonExecutarActionPerformed
+
+    private void ButtonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCompilarActionPerformed
+        // TODO add your handling code here:
+
+        System.out.println("Compilou");
+
+    }//GEN-LAST:event_ButtonCompilarActionPerformed
 
     private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
         // TODO add your handling code here:
@@ -442,6 +476,20 @@ public class CompiladorGui extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_ButtonColarActionPerformed
+
+    private void MenuItemExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemExecutarActionPerformed
+        // TODO add your handling code here:
+
+        System.out.println("Executou");
+
+    }//GEN-LAST:event_MenuItemExecutarActionPerformed
+
+    private void MenuItemCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemCompilarActionPerformed
+        // TODO add your handling code here:
+
+        System.out.println("Compilou");
+
+    }//GEN-LAST:event_MenuItemCompilarActionPerformed
 
     private void MenuItemNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemNovoActionPerformed
         // TODO add your handling code here:

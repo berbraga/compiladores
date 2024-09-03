@@ -4,11 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44d0d2e5-a9d1-4ade-8309-c125ac8a2163" name="Changes" comment="" />
+    <list default="true" id="44d0d2e5-a9d1-4ade-8309-c125ac8a2163" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/Compilador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/Compilador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$15.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$16.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/CompiladorGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/CompiladorGui.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -23,6 +41,8 @@
     &quot;Application.Compilador.executor&quot;: &quot;Run&quot;,
     &quot;Application.CompiladorGui.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Documents/compiladores&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -54,6 +74,8 @@
       <workItem from="1725381815628" duration="327000" />
       <workItem from="1725383467741" duration="17000" />
       <workItem from="1725384281612" duration="21000" />
+      <workItem from="1725385564398" duration="1301000" />
+      <workItem from="1725386979872" duration="294000" />
     </task>
     <servers />
   </component>
