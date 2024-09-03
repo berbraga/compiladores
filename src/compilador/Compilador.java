@@ -25,7 +25,6 @@ public class Compilador {
         obj.setVisible(true);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         while(obj.isVisible()){
-            
             obj.LineColumn.setText("Linha: " + obj.linenum + " Coluna: " + obj.columnnum);
         }
     }

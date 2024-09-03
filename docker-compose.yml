@@ -1,0 +1,11 @@
+version: '3.9'  # ou a versão mais recente suportada pelo seu Docker
+
+services:
+  compiladores:
+    build: .
+    container_name: compiladores-app
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    command: mvn clean compile exec:java
