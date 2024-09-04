@@ -8,7 +8,7 @@ public class prataLang {
   final static String Version = "PrataLang Compiler - Version 1.0 - 2024";
   boolean Menosshort = false;
 
-  public static void main(String[] args) throws ParcerException {
+  public static void main(String[] args) throws ParseException {
     String filename= ""; // nome do arquivo a ser analizado
     prataLang parser;
     int i;
@@ -21,7 +21,7 @@ public class prataLang {
       if ( args[i].toLowerCase().equals("-short") ) ms = true;
       else{
         System.out.println("Usage is: java PrataLang [-short] inputfile");
-        Syste.exit(0);
+        System.exit(0);
       }
     }
 
@@ -34,7 +34,7 @@ public class prataLang {
       filename = args[args.length-1];
       System.out.println("Readig from file " + filename + " . . . ");
       try{
-        parcer = new prataLang(new java.io.FileInputStream(filename));
+        parser = new prataLang(new java.io.FileInputStream(filename));
       } catch (java.io.FileNotFoundException e ) {
         System.out.println("File "+filename+ " NOT FOUND");
         return;
@@ -44,7 +44,7 @@ public class prataLang {
     parser.program(); //chama o metodo que faz a analise
 
     // verifica se houver erro lexico
-    if (parcer.token_source.foundLexError() != 0)
+    if (parser.token_source.foundLexError() != 0)
       System.out.println(
         parser.token_source.foundLexError() + " Erro Lexico encontrado!! "
       );
@@ -52,15 +52,6 @@ public class prataLang {
 
 
 
-
-   // Inicialização do Analisador Léxico
-//   AnalisadorLexico parser = new AnalisadorLexico(System.in);
-//   try {
-//     parser.Input();
-//     System.out.println("Análise concluída sem erros.");
-//   } catch (ParseException e) {
-//     System.err.println("Erro de análise: " + e.getMessage());
-//   }
   } //main
 
   //metodo auxiliar
@@ -74,6 +65,7 @@ public class prataLang {
     }
     catch (StringIndexOutOfBoundsException e ){ }
     return s;
+  }
 }
 
 PARSER_END(prataLang)
@@ -89,6 +81,25 @@ TOKEN_MGR_DECLS : {
 
 SKIP : {
     " " | "\t" | "\n" | "\r"| "\f"  // Ignora espaços em branco e quebras de linha
+}
+
+// Multiline comment
+SKIP : {
+    "/*" : multilinecomment
+}
+
+<multilinecomment> SKIP : {
+    "*/": DEFAULT
+    | <~[]>
+}
+
+// sigle line comment
+SKIP : {
+    "//" : singlelinecomment
+}
+<singlelinecomment> SKIP: {
+    <["\n","\r"]>:DEFAULT
+    | <~[]>
 }
 
 // Definição de Comentários de Linha e Bloco
@@ -141,10 +152,84 @@ TOKEN : {
 }*/
 
 // PALAVRAS RESERVADAS
-//TOKEN : {}
+TOKEN : {
+      < MAKE : "make" >
+    | < END_DOT  : "end."  >
+    | < END  : "end"  >
+    | < END_DOT_COMMA  : "end;"  >
+    | < CONST  : "const"  >
+    | < INT  : "int"  >
+    | < REAL  : "real"  >
+    | < CHAR  : "char"  >
+    | < BOOL  : "bool"  >
+    | < VAR  : "var"  >
+    | < GET  : "get"  >
+    | < PUT  : "put"  >
+    | < IF  : "if"  >
+    | < THEN  : "then"  >
+    | < ELSE  : "else"  >
+    | < WHILE  : "while"  >
+    | < DO  : "do"  >
+}
 
-// OPERADORES
-//TOKEN : {}
+// OPERADORES LOGICOS
+TOKEN :
+{
+       < NOT : "!" >
+     | < OR : "|" >
+     | < END_LOGIC : "&" >
+}
+
+// OPERADORES RELACIONAIS
+TOKEN :
+{
+       < EQUAL : "=" >
+     | < DIFFERENT : "<>" >
+     | < MINOR : "<" >
+     | < MINOR_EQUAL : "<=" >
+     | < BIGGER : ">" >
+     | < BIGGER_EQUAL : ">=" >
+}
+// OPERADORES ARITMETRIC
+TOKEN :
+{
+       < PLUS : "+" >
+     | < MINUS : "-" >
+     | < MULTIPLICATION : "*" >
+     | < DIVISION : "/" >
+     | < POTENCY : "**" >
+     | < ENTIRE_DIVISION : "%" >
+     | < DIVISION_REST : "%%" >
+}
+// CONSTANTES
+TOKEN :
+{
+       < TRUE : "true" >
+     | < FALSE   : "false" >
+     | < int_constant  : ( //numeros decimais, octais, hexadecimais e binarios
+            (["0"-"9"]  (["0"-"9"]) * ) |
+            (["0"-"7"]  (["0"-"7"]) * ["o","0"]) |
+            (["0"-"9"]  (["0"-"7", "A"-"F", "a"-"f"]) * ["h","H"]) |
+            (["0"-"1"]  (["0"-"1"]) * ["b","B"])
+         ) >
+     | < string_constant : //constante string como "abcd bcda"
+       "\""(~["\"","\n","\r"]) * "\""  >
+     | < null_constant   : "null" >
+
+}
+TOKEN : {
+    < IDENTIFIER: (["a"-"z", "A"-"Z"])(["a"-"z", "A"-"Z", "0"-"9", "_"])* > |
+    < INTEGER: (["0"-"9"])+ > |
+    < FLOAT: (["0"-"9"])+ "." (["0"-"9"])+ > |
+    < STRING_LITERAL: "\"" (~["\""])* "\"" >
+}
+// IDENTIFICADORES
+TOKEN :
+{
+      < IDENT  : <LETTER> (<LETTER>|<DIGIT>)* >
+    | < LETTER : ["A" - "Z", "a" - "z"]>
+    | < DIGIT  : ["0"-"9"] >
+}
 
 // SIMBULOS ESPECIAIS
 //TOKEN : {}
@@ -168,3 +253,5 @@ TOKEN : {
 //    < OPERATOR_LT > | < OPERATOR_GT > | < OPERATOR_LE > | < OPERATOR_GE > |
 //    < LOGICAL_AND > | < LOGICAL_OR > | < LOGICAL_NOT >
 //}
+
+
