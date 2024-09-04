@@ -4,9 +4,10 @@
  */
 package compilador;
 
+import compilador.telas.CompiladorGui;
+
 import javax.swing.JFrame;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Utilities;
 
 /**
  *
@@ -25,7 +26,7 @@ public class Compilador {
         obj.setVisible(true);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         while(obj.isVisible()){
-            obj.LineColumn.setText("Linha: " + obj.linenum + " Coluna: " + obj.columnnum);
+            obj.LineColumn.setText("Linha: " +  obj.linenum+ " Coluna: " + obj.columnnum);
         }
     }
     

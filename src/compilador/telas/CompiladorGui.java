@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package compilador;
+package compilador.telas;
 
 import java.awt.FileDialog;
 import java.awt.datatransfer.Clipboard;
@@ -17,8 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
-import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  *
@@ -28,8 +26,8 @@ public class CompiladorGui extends javax.swing.JFrame {
 
     public String filename;
     public String filepath;
-    int linenum = 1;
-    int columnnum = 1;
+    public int linenum = 1;
+    public int columnnum = 1;
     Clipboard clipboard = getToolkit().getSystemClipboard();
     
     /**

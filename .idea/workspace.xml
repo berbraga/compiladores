@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44d0d2e5-a9d1-4ade-8309-c125ac8a2163" name="Changes" comment="">
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/Compilador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/Compilador.java" afterDir="false" />
-=======
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/Compilador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/Compilador.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilador/compilador/CompiladorGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/CompiladorGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/CompiladorGui.java" afterDir="false" />
->>>>>>> 1ae4298d25d8f79bc2b4bbcab6a3a7cf322809ed
-    </list>
+    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,47 +21,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Compilador.executor": "Run",
-    "Application.CompiladorGui.executor": "Run",
+    "Application.prataLang.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "berbraga/organizacao",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/berna/Documentos/Faculdade/compiladores",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
-=======
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Compilador.executor&quot;: &quot;Run&quot;,
-    &quot;Application.CompiladorGui.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Documents/compiladores&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
->>>>>>> 1ae4298d25d8f79bc2b4bbcab6a3a7cf322809ed
+    "last_opened_file_path": "C:/Users/berna/Documentos/Faculdade/compiladores"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.prataLang">
     <configuration name="Compilador" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="compilador.Compilador" />
       <module name="Compilador" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="compilador.*" />
+          <option name="PATTERN" value="compilador.telas.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -89,8 +45,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="prataLang" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="prataLang" />
+      <module name="Compilador" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.prataLang" />
         <item itemvalue="Application.Compilador" />
       </list>
     </recent_temporary>
