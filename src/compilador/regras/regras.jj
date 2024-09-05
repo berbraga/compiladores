@@ -1,7 +1,9 @@
 options {
     STATIC = false;
+    DEBUG_LOOKAHEAD = true;
 }
 PARSER_BEGIN(prataLang)
+package compilador.regras;
 import java.io.*;
 public class prataLang {
 
@@ -9,7 +11,7 @@ public class prataLang {
   boolean Menosshort = false;
 
   public static void main(String[] args) throws ParseException {
-    String filename= ""; // nome do arquivo a ser analizado
+    String filename = ""; // nome do arquivo a ser analizado
     prataLang parser;
     int i;
     boolean ms = false;
@@ -17,8 +19,8 @@ public class prataLang {
     System.out.println(Version);
 
     // le os parametros passados para o compilador
-    for(int i = 0; i < args.length; i++) {
-      if ( args[i].toLowerCase().equals("-short") ) ms = true;
+    for(i = 0; i < args.length - 1; i++) {
+      if ( args[i].equalsIgnoreCase("-short") ) ms = true;
       else{
         System.out.println("Usage is: java PrataLang [-short] inputfile");
         System.exit(0);
@@ -77,6 +79,11 @@ TOKEN_MGR_DECLS : {
         return countLexError;
 
     }
+}
+
+void program() : {}
+{
+    <EOF>
 }
 
 SKIP : {
@@ -154,9 +161,7 @@ TOKEN : {
 // PALAVRAS RESERVADAS
 TOKEN : {
       < MAKE : "make" >
-    | < END_DOT  : "end."  >
     | < END  : "end"  >
-    | < END_DOT_COMMA  : "end;"  >
     | < CONST  : "const"  >
     | < INT  : "int"  >
     | < REAL  : "real"  >
@@ -183,7 +188,8 @@ TOKEN :
 // OPERADORES RELACIONAIS
 TOKEN :
 {
-       < EQUAL : "=" >
+       < ASSIGN : "->" >
+     | < EQUAL : "=" >
      | < DIFFERENT : "<>" >
      | < MINOR : "<" >
      | < MINOR_EQUAL : "<=" >
@@ -206,40 +212,68 @@ TOKEN :
 {
        < TRUE : "true" >
      | < FALSE   : "false" >
-     | < int_constant  : ( //numeros decimais, octais, hexadecimais e binarios
-            (["0"-"9"]  (["0"-"9"]) * ) |
-            (["0"-"7"]  (["0"-"7"]) * ["o","0"]) |
-            (["0"-"9"]  (["0"-"7", "A"-"F", "a"-"f"]) * ["h","H"]) |
-            (["0"-"1"]  (["0"-"1"]) * ["b","B"])
-         ) >
-     | < string_constant : //constante string como "abcd bcda"
-       "\""(~["\"","\n","\r"]) * "\""  >
+     | < int_constant  : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? >
+     | < char_constant : ("\"" ~["\"", "\n", "\r"] "\"" | "'" ~["'", "\n", "\r"] "'") >
+     | < float_constant : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? (["0"-"9"])? "." (["0"-"9"]) (["0"-"9"])? >
+     | < string_constant : // constante string como "abcd bcda" ou 'abcd bcda'
+           ("\"" (~["\"", "\n", "\r"])* "\"" | "'" (~["'", "\n", "\r"])* "'")
+       >
      | < null_constant   : "null" >
 
 }
-TOKEN : {
-    < IDENTIFIER: (["a"-"z", "A"-"Z"])(["a"-"z", "A"-"Z", "0"-"9", "_"])* > |
-    < INTEGER: (["0"-"9"])+ > |
-    < FLOAT: (["0"-"9"])+ "." (["0"-"9"])+ > |
-    < STRING_LITERAL: "\"" (~["\""])* "\"" >
-}
+
 // IDENTIFICADORES
 TOKEN :
 {
-      < IDENT  : <LETTER> (<LETTER>|<DIGIT>)* >
-    | < LETTER : ["A" - "Z", "a" - "z"]>
-    | < DIGIT  : ["0"-"9"] >
+    < IDENT  : (<LETTER>|<UNDERSCORE>) (<LETTER>|<UNDERSCORE>|<DIGIT_NO_REPEAT>)* <NOT_DIGIT> >
+    | < #LETTER : ["A"-"Z", "a"-"z"] >
+    | < #DIGIT  : ["0"-"9"] >
+    | < #DIGIT_NO_REPEAT : <DIGIT> (~["0"-"9"])? > // Um dígito que não pode ser seguido por outro dígito
+    | < #UNDERSCORE : "_" >
+    | < #NOT_DIGIT : ~["0"-"9"] >  // Qualquer coisa que não seja um dígito, para evitar terminar com número
 }
 
 // SIMBULOS ESPECIAIS
-//TOKEN : {}
+TOKEN :
+{
+    < DOT : "." > |
+    < COMMA : "," > |
+    < SEMICOLON : ";" > |
+    < LPAREN : "(" > |
+    < RPAREN : ")" >
+}
 
-// CONSTANTES
-//TOKEN : {}
-
-// IDENTIFICADORES
-//TOKEN : {}
-
+// Token para erros léxicos
+TOKEN : {
+    < INVALID_LEXICAL : (~["a"-"z",
+        "A"-"Z",
+        "0"-"9",
+        "\n", "\r",
+        "\t", "\f",
+        " ",
+        "(", ")",
+        "[", "]",
+        "{", "}",
+        ",",
+        ".",
+        ";",
+        "=",
+        "<",
+        ">",
+        "+",
+        "-",
+        "*",
+        "/",
+        "&",
+        "|",
+        "!",
+        "%",
+        "^"]) + >
+            {
+                System.err.println("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn + " - Invalid  string Found: " + image);
+                countLexError++;
+            }
+}
 // Produções de Entrada para Iniciar a Análise
 //void Input() : {} {
 //    (Token())*

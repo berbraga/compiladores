@@ -413,6 +413,7 @@ public class CompiladorGui extends javax.swing.JFrame {
     private void ButtonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCompilarActionPerformed
         // TODO add your handling code here:
 
+        SalvarArquivo(filepath);
         System.out.println("Compilou");
 
     }//GEN-LAST:event_ButtonCompilarActionPerformed
