@@ -38,10 +38,10 @@ public class Salvar extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Você Deseja Salvar o Arquivo?");
+        jLabel1.setText("Do you wish to save the File?");
         jLabel1.setPreferredSize(new java.awt.Dimension(500, 50));
 
-        ButtonSim.setText("Sim");
+        ButtonSim.setText("Yes");
         ButtonSim.setPreferredSize(new java.awt.Dimension(150, 60));
         ButtonSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,14 +49,14 @@ public class Salvar extends javax.swing.JFrame {
             }
         });
 
-        ButtonNao.setText("Não");
+        ButtonNao.setText("No");
         ButtonNao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonNaoActionPerformed(evt);
             }
         });
 
-        ButtonCancelar.setText("Cancelar");
+        ButtonCancelar.setText("Cancel");
         ButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonCancelarActionPerformed(evt);

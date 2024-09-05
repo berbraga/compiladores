@@ -18,7 +18,7 @@ public class Compilador {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws BadLocationException {
+    public static void main (String[] args) throws BadLocationException {
         CompiladorGui obj = new CompiladorGui();
         obj.setBounds(0, 0, 700, 500);
         obj.setTitle("Compilador");
@@ -26,7 +26,7 @@ public class Compilador {
         obj.setVisible(true);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         while(obj.isVisible()){
-            obj.LineColumn.setText("Linha: " +  obj.linenum+ " Coluna: " + obj.columnnum);
+            obj.LineColumn.setText("Line: " +  obj.linenum+ " Column: " + obj.columnnum);
         }
     }
     

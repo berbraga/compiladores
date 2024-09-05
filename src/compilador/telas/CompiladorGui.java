@@ -4,6 +4,10 @@
  */
 package compilador.telas;
 
+//imports para depois que utilizar o javacc em regras.jj
+//import compilador.regras.ParseException;
+//import compilador.regras.prataLang;
+
 import java.awt.FileDialog;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -28,6 +32,8 @@ public class CompiladorGui extends javax.swing.JFrame {
     public String filepath;
     public int linenum = 1;
     public int columnnum = 1;
+    //Criando o objeto do prataLang
+    //prataLang parser;
     Clipboard clipboard = getToolkit().getSystemClipboard();
     
     /**
@@ -177,7 +183,12 @@ public class CompiladorGui extends javax.swing.JFrame {
         ButtonCompilar.setBorder(null);
         ButtonCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonCompilarActionPerformed(evt);
+                //Try Catch para depois de usar o javacc no regras.jj
+                //try {
+                    ButtonCompilarActionPerformed(evt);
+                //} catch (ParseException e) {
+                    //throw new RuntimeException(e);
+                //}
             }
         });
 
@@ -288,9 +299,9 @@ public class CompiladorGui extends javax.swing.JFrame {
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
 
         MenuArquivo.setBackground(new java.awt.Color(204, 204, 204));
-        MenuArquivo.setText("Arquivo");
+        MenuArquivo.setText("File");
 
-        MenuItemNovo.setText("Novo");
+        MenuItemNovo.setText("New");
         MenuItemNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemNovoActionPerformed(evt);
@@ -298,7 +309,7 @@ public class CompiladorGui extends javax.swing.JFrame {
         });
         MenuArquivo.add(MenuItemNovo);
 
-        MenuItemAbrir.setText("Abrir");
+        MenuItemAbrir.setText("Open");
         MenuItemAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemAbrirActionPerformed(evt);
@@ -307,7 +318,7 @@ public class CompiladorGui extends javax.swing.JFrame {
         MenuArquivo.add(MenuItemAbrir);
 
         MenuItemSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        MenuItemSalvar.setText("Salvar");
+        MenuItemSalvar.setText("Save");
         MenuItemSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemSalvarActionPerformed(evt);
@@ -316,7 +327,7 @@ public class CompiladorGui extends javax.swing.JFrame {
         MenuArquivo.add(MenuItemSalvar);
 
         MenuItemSalvarComo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        MenuItemSalvarComo.setText("Salvar Como");
+        MenuItemSalvarComo.setText("Save As");
         MenuItemSalvarComo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemSalvarComoActionPerformed(evt);
@@ -324,7 +335,7 @@ public class CompiladorGui extends javax.swing.JFrame {
         });
         MenuArquivo.add(MenuItemSalvarComo);
 
-        MenuItemSair.setText("Sair");
+        MenuItemSair.setText("Exit");
         MenuItemSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemSairActionPerformed(evt);
@@ -335,10 +346,10 @@ public class CompiladorGui extends javax.swing.JFrame {
         jMenuBar1.add(MenuArquivo);
 
         jMenu2.setBackground(new java.awt.Color(204, 204, 204));
-        jMenu2.setText("Edição");
+        jMenu2.setText("Edit");
 
         MenuItemCopiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        MenuItemCopiar.setText("Copiar");
+        MenuItemCopiar.setText("Copy");
         MenuItemCopiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemCopiarActionPerformed(evt);
@@ -347,7 +358,7 @@ public class CompiladorGui extends javax.swing.JFrame {
         jMenu2.add(MenuItemCopiar);
 
         MenuItemColar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        MenuItemColar.setText("Colar");
+        MenuItemColar.setText("Paste");
         MenuItemColar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemColarActionPerformed(evt);
@@ -356,7 +367,7 @@ public class CompiladorGui extends javax.swing.JFrame {
         jMenu2.add(MenuItemColar);
 
         MenuItemRecortar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        MenuItemRecortar.setText("Recortar");
+        MenuItemRecortar.setText("Cut");
         MenuItemRecortar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuItemRecortarActionPerformed(evt);
@@ -367,17 +378,22 @@ public class CompiladorGui extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setBackground(new java.awt.Color(204, 204, 204));
-        jMenu3.setText("Compilação");
+        jMenu3.setText("Compilation");
 
-        MenuItemCompilar.setText("Compilar");
+        MenuItemCompilar.setText("Compile");
         jMenu3.add(MenuItemCompilar);
         MenuItemCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuItemCompilarActionPerformed(evt);
+                //Try Catch para depois de usar o javacc no regras.jj
+                //try {
+                    MenuItemCompilarActionPerformed(evt);
+                //} catch (ParseException e) {
+                    //throw new RuntimeException(e);
+                //}
             }
         });
 
-        MenuItemExecutar.setText("Executar");
+        MenuItemExecutar.setText("Execute");
         jMenu3.add(MenuItemExecutar);
         MenuItemExecutar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,15 +422,23 @@ public class CompiladorGui extends javax.swing.JFrame {
     private void ButtonExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExecutarActionPerformed
         // TODO add your handling code here:
 
-        System.out.println("Executou");
+        System.out.println("Executed");
 
     }//GEN-LAST:event_ButtonExecutarActionPerformed
 
+    //Erro em throws ParseException que fica após ...evt), irei remover e deixar comentado na linha abaixo
+    // throws ParseException
     private void ButtonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCompilarActionPerformed
         // TODO add your handling code here:
 
-        SalvarArquivo(filepath);
-        System.out.println("Compilou");
+        if(filepath != null){
+            SalvarArquivo(filepath);
+        }
+        else{
+            Salvar_Como();
+        }
+        //Essa linha faz a integração entre o prataLang e o Gui, até utilizar o javacc no regras.jj ficará com erro ->
+        //parser.Compile(filepath, parser);
 
     }//GEN-LAST:event_ButtonCompilarActionPerformed
 
@@ -471,7 +495,7 @@ public class CompiladorGui extends javax.swing.JFrame {
             String sel = (String) pasteText.getTransferData(DataFlavor.stringFlavor);
             TextArea.replaceRange(sel, TextArea.getSelectionStart(), TextArea.getSelectionEnd());
         } catch (Exception e){
-            System.out.println("Erro na Cola");
+            System.out.println("Paste Error");
         }
         
     }//GEN-LAST:event_ButtonColarActionPerformed
@@ -486,7 +510,14 @@ public class CompiladorGui extends javax.swing.JFrame {
     private void MenuItemCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemCompilarActionPerformed
         // TODO add your handling code here:
 
-        System.out.println("Compilou");
+        if(filepath != null){
+            SalvarArquivo(filepath);
+        }
+        else{
+            Salvar_Como();
+        }
+        //Essa linha faz a integração entre o prataLang e o Gui, até utilizar o javacc no regras.jj ficará com erro ->
+        //parser.Compile(filepath, parser);
 
     }//GEN-LAST:event_MenuItemCompilarActionPerformed
 
@@ -542,7 +573,7 @@ public class CompiladorGui extends javax.swing.JFrame {
             String sel = (String) pasteText.getTransferData(DataFlavor.stringFlavor);
             TextArea.replaceRange(sel, TextArea.getSelectionStart(), TextArea.getSelectionEnd());
         } catch (Exception e){
-            System.out.println("Erro na Cola");
+            System.out.println("Paste Error");
         }
         
     }//GEN-LAST:event_MenuItemColarActionPerformed
@@ -603,7 +634,7 @@ public class CompiladorGui extends javax.swing.JFrame {
     }
     
     public void Salvar_Como(){
-        FileDialog fileDialog = new FileDialog(CompiladorGui.this, "Salvar Arquivo", FileDialog.SAVE);
+        FileDialog fileDialog = new FileDialog(CompiladorGui.this, "Save File", FileDialog.SAVE);
         fileDialog.setVisible(true);
         
         
@@ -617,7 +648,7 @@ public class CompiladorGui extends javax.swing.JFrame {
     }
     
     public void Abrir(){
-        FileDialog fileDialog = new FileDialog(CompiladorGui.this, "Abrir Arquivo", FileDialog.LOAD);
+        FileDialog fileDialog = new FileDialog(CompiladorGui.this, "Open File", FileDialog.LOAD);
         fileDialog.setVisible(true);
         
         if(fileDialog.getFile() != null){
@@ -636,7 +667,7 @@ public class CompiladorGui extends javax.swing.JFrame {
                 TextArea.setText(sb.toString());
             }
         } catch (IOException e) {
-            System.out.println("Arquivo Não Encontrado");
+            System.out.println("File Not Found");
         }
     }
     
