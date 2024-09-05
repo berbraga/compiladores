@@ -5,8 +5,8 @@
 package compilador.telas;
 
 //imports para depois que utilizar o javacc em regras.jj
-//import compilador.regras.ParseException;
-//import compilador.regras.prataLang;
+import compilador.regras.ParseException;
+import compilador.regras.prataLang;
 
 import java.awt.FileDialog;
 import java.awt.datatransfer.Clipboard;
@@ -33,7 +33,7 @@ public class CompiladorGui extends javax.swing.JFrame {
     public int linenum = 1;
     public int columnnum = 1;
     //Criando o objeto do prataLang
-    //prataLang parser;
+    prataLang parser;
     Clipboard clipboard = getToolkit().getSystemClipboard();
     
     /**
@@ -184,11 +184,11 @@ public class CompiladorGui extends javax.swing.JFrame {
         ButtonCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 //Try Catch para depois de usar o javacc no regras.jj
-                //try {
+                try {
                     ButtonCompilarActionPerformed(evt);
-                //} catch (ParseException e) {
-                    //throw new RuntimeException(e);
-                //}
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -385,11 +385,11 @@ public class CompiladorGui extends javax.swing.JFrame {
         MenuItemCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 //Try Catch para depois de usar o javacc no regras.jj
-                //try {
+                try {
                     MenuItemCompilarActionPerformed(evt);
-                //} catch (ParseException e) {
-                    //throw new RuntimeException(e);
-                //}
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -428,9 +428,10 @@ public class CompiladorGui extends javax.swing.JFrame {
 
     //Erro em throws ParseException que fica após ...evt), irei remover e deixar comentado na linha abaixo
     // throws ParseException
-    private void ButtonCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCompilarActionPerformed
+    private void ButtonCompilarActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_ButtonCompilarActionPerformed
         // TODO add your handling code here:
 
+        jTextArea1.setText("");
         if(filepath != null){
             SalvarArquivo(filepath);
         }
@@ -438,7 +439,7 @@ public class CompiladorGui extends javax.swing.JFrame {
             Salvar_Como();
         }
         //Essa linha faz a integração entre o prataLang e o Gui, até utilizar o javacc no regras.jj ficará com erro ->
-        //parser.Compile(filepath, parser);
+        parser.Compile(filepath, parser, CompiladorGui.this);
 
     }//GEN-LAST:event_ButtonCompilarActionPerformed
 
@@ -507,9 +508,12 @@ public class CompiladorGui extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MenuItemExecutarActionPerformed
 
-    private void MenuItemCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemCompilarActionPerformed
+    //Erro em throws ParseException que fica após ...evt), irei remover e deixar comentado na linha abaixo
+    // throws ParseException
+    private void MenuItemCompilarActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_MenuItemCompilarActionPerformed
         // TODO add your handling code here:
 
+        jTextArea1.setText("");
         if(filepath != null){
             SalvarArquivo(filepath);
         }
@@ -517,7 +521,7 @@ public class CompiladorGui extends javax.swing.JFrame {
             Salvar_Como();
         }
         //Essa linha faz a integração entre o prataLang e o Gui, até utilizar o javacc no regras.jj ficará com erro ->
-        //parser.Compile(filepath, parser);
+        parser.Compile(filepath, parser, CompiladorGui.this);
 
     }//GEN-LAST:event_MenuItemCompilarActionPerformed
 
@@ -718,6 +722,6 @@ public class CompiladorGui extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextArea jTextArea1;
+    public javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

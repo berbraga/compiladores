@@ -4,24 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/Images/icons8-add-file-25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/Images/icons8-code-25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/Images/icons8-copy-25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/Images/icons8-cut-25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/Images/icons8-file-explorer-25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/Images/icons8-paste-25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/Images/icons8-play-25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/Images/icons8-save-as-25.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/regras.jj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compilador.iml" beforeDir="false" afterPath="$PROJECT_DIR$/compiladores.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compiladores2.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/Compilador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/Compilador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/regras.jj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$18.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$20.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$20.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/regras/regras.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/compilador/telas/CompiladorGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/telas/CompiladorGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/telas/Salvar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/telas/Salvar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +22,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;matheuslobi024&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/berbraga/compiladores.git&quot;,
+    &quot;accountId&quot;: &quot;c97b698d-62d6-4f92-987c-4de156fd25db&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -112,8 +115,19 @@
       <workItem from="1725545366738" duration="71000" />
       <workItem from="1725545453178" duration="35000" />
       <workItem from="1725545537661" duration="63000" />
-      <workItem from="1725545607672" duration="241000" />
+      <workItem from="1725545607672" duration="610000" />
+      <workItem from="1725549607307" duration="6083000" />
+      <workItem from="1725555855714" duration="1481000" />
     </task>
+    <task id="LOCAL-00001" summary="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
+      <option name="closed" value="true" />
+      <created>1725546149272</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1725546149272</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,5 +160,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj" />
+    <option name="LAST_COMMIT_MESSAGE" value="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj" />
   </component>
 </project>

@@ -4,6 +4,7 @@ options {
 PARSER_BEGIN(prataLang)
 package compilador.regras;
 import java.io.*;
+import compilador.telas.CompiladorGui;
 public class prataLang {
 
   final static String Version = "PrataLang Compiler - Version 1.0 - 2024";
@@ -42,7 +43,7 @@ public class prataLang {
       }
     }
     parser.Menosshort = ms;
-    parser.program(); //chama o metodo que faz a analise
+    //parser.program(); //chama o metodo que faz a analise
 
     // verifica se houver erro lexico
     if (parser.token_source.foundLexError() != 0)
@@ -56,29 +57,29 @@ public class prataLang {
   } //main
 
     // Metodo que é chamado no CompiladorGui para compilar pelo botão e pelo menu
-  public static void Compile(String file, prataLang parser) throws ParseException {
+  public static void Compile(String file, prataLang parser, CompiladorGui gui) throws ParseException {
       String filename = file; // nome do arquivo a ser analizado
       boolean ms = false;
 
-      System.out.println(Version);
+      gui.jTextArea1.append(Version + "\n");
 
-      System.out.println("Readig from file " + filename + " . . . ");
+      gui.jTextArea1.append("Readig from file " + filename + " . . .  \n");
 
       try{
             parser = new prataLang(new java.io.FileInputStream(filename));
       } catch (java.io.FileNotFoundException e ) {
-            System.out.println("File "+filename+ " NOT FOUND");
+            gui.jTextArea1.append("File "+filename+ " NOT FOUND \n");
             return;
       }
 
       parser.Menosshort = ms;
-      parser.program(); //chama o metodo que faz a analise
+      parser.program(gui); //chama o metodo que faz a analise
 
       if (parser.token_source.foundLexError() != 0)
-            System.out.println(
-              parser.token_source.foundLexError() + " Erro Lexico encontrado!! "
+            gui.jTextArea1.append(
+              parser.token_source.foundLexError() + " Erro Lexico encontrado!! \n"
             );
-      else System.out.println(" Program successfully analized ");
+      else gui.jTextArea1.append(" Program successfully analized \n");
   }
 
   //metodo auxiliar
@@ -102,7 +103,6 @@ TOKEN_MGR_DECLS : {
 
     public int foundLexError(){
         return countLexError;
-
     }
 }
 
@@ -128,55 +128,6 @@ SKIP : {
     <["\n","\r"]>:DEFAULT
     | <~[]>
 }
-
-// Definição de Comentários de Linha e Bloco
-//SKIP : {
-//    "//" ~[\r\n]* ("\r" | "\n" | "\r\n") |
-//    "/*" (~["*"])* "*"+ (~["/"] (~["*"])* "*"+)* "/"
-//}
-
-// Definição de Tokens para a Linguagem
-
-/*
-
-* VER O LIVRO NA PARTE DOS TOKENS -> NÃO SEI A PAGINA , TA GRIFADO ALI
-SEPARAR ESSE TODO AQUI
-
-COLOCAR TOKEM:
-    -> PALAVRAS RESERVADAS
-    -> OPERADORES
-    -> SIMBULOS ESPECIAIS
-    -> CONSTANTES
-    -> IDENTIFICADORES
-
-
-
-TOKEN : {
-    < IDENTIFIER: (["a"-"z", "A"-"Z"])(["a"-"z", "A"-"Z", "0"-"9", "_"])* > |
-    < INTEGER: (["0"-"9"])+ > |
-    < FLOAT: (["0"-"9"])+ "." (["0"-"9"])+ > |
-    < STRING_LITERAL: "\"" (~["\""])* "\"" > |
-    < KEYWORD_MAKE: "make" > |
-    < KEYWORD_END: "end" > |
-    < KEYWORD_CONST: "const" > |
-    < KEYWORD_VAR: "var" > |
-    < OPERATOR_PLUS: "+" > |
-    < OPERATOR_MINUS: "-" > |
-    < OPERATOR_MULT: "*" > |
-    < OPERATOR_DIV: "/" > |
-    < OPERATOR_POW: "**" > |
-    < OPERATOR_MOD: "%" > |
-    < OPERATOR_MOD_INT: "%%" > |
-    < OPERATOR_EQ: "=" > |
-    < OPERATOR_NEQ: "<>" > |
-    < OPERATOR_LT: "<" > |
-    < OPERATOR_GT: ">" > |
-    < OPERATOR_LE: "<=" > |
-    < OPERATOR_GE: ">=" > |
-    < LOGICAL_AND: "&" > |
-    < LOGICAL_OR: "|" > |
-    < LOGICAL_NOT: "!" >
-}*/
 
 // PALAVRAS RESERVADAS
 TOKEN : {
@@ -245,12 +196,7 @@ TOKEN :
 // IDENTIFICADORES
 TOKEN :
 {
-    < IDENT  : (<LETTER>|<UNDERSCORE>) (<LETTER>|<UNDERSCORE>|<DIGIT_NO_REPEAT>)* <NOT_DIGIT> >
-    | < #LETTER : ["A"-"Z", "a"-"z"] >
-    | < #DIGIT  : ["0"-"9"] >
-    | < #DIGIT_NO_REPEAT : <DIGIT> (~["0"-"9"])? > // Um dígito que não pode ser seguido por outro dígito
-    | < #UNDERSCORE : "_" >
-    | < #NOT_DIGIT : ~["0"-"9"] >  // Qualquer coisa que não seja um dígito, para evitar terminar com número
+    < IDENT  : ( ["a"-"z", "A"-"Z"]  | "_" ) ( ["a"-"z", "A"-"Z"]  |"_"| ["0" - "9"] ( ["a"-"z", "A"-"Z"]  "_" ) )* (["a"-"z", "A"-"Z"] | "_") >
 }
 
 // SIMBULOS ESPECIAIS
@@ -265,6 +211,7 @@ TOKEN :
 
 // Token para erros léxicos
 TOKEN : {
+
     < INVALID_LEXICAL : (~["a"-"z",
         "A"-"Z",
         "0"-"9",
@@ -288,77 +235,69 @@ TOKEN : {
         "|",
         "!",
         "%",
-        "^"]) + >
+        "^",
+        "_"]) + >
             {
-                System.err.println("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Character Found: " + image);
+                gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Character Found: " + image + " /n");
                 countLexError++;
             }
    |
         <INVALID_CONST_STRING_END:
         "\"" (~ ["\n", "\r", "\""])* ["\n", "\r"]>
         {
-            System.err.println("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid String/Character Ending: " + image);
+            gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid String/Character Ending: " + image + " /n");
             countLexError++;
         }
   |
         <INVALID_CONST_INT_SIZE:
         (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])*>
         {
-            System.err.println("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Int Size: " + image);
+            gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Int Size: " + image + " /n");
             countLexError++;
         }
  |
        <INVALID_CONST_FLOAT_SIZE:
       ((["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])* "." (["0"-"9"]) (["0"-"9"]) | (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])* "." (["0"-"9"]) (["0"-"9"]) (["0"-"9"])* | (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])  "." (["0"-"9"]) (["0"-"9"]) (["0"-"9"])*)>
        {
-               System.err.println("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Float Size: " + image);
+               gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Float Size: " + image + " /n");
                countLexError++;
        }
 |
        <INVALID_COMMENT_CLOSE:
        "*/" >
        {
-            System.err.println("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Closing of a Comment: " + image);
+            gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Closing of a Comment: " + image + " /n");
             countLexError++;
        }
+|
+    <INVALID_IDENTIFIER:
+           ( ( ["A"-"Z", "a"-"z"] | "_" ) ( ["A"-"Z", "a"-"z"] |"_"| ["0" - "9"] ( ["A"-"Z", "a"-"z"] "_" ) )* ["0" - "9"] | ( ["A"-"Z", "a"-"z"] | "_")  (["A"-"Z", "a"-"z"] | "_" | ["0" - "9"] ["0" - "9"] )* ["A"-"Z", "a"-"z"] "_" ) >
+           {
+                gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Identifier: " + image + " /n");
+                countLexError++;
+           }
 }
 
-JAVACODE void program()
+JAVACODE void program(CompiladorGui gui)
 {
 Token t;
     do
     {
-    t = getNextToken();
+    t = getNextToken(gui);
     Token st = t;
         while ( st.specialToken != null)
         st = st.specialToken;
         do {
            if ( Menosshort )
-          System.out.println(st.image + "  " +
+          gui.jTextArea1.append(st.image + "  " +
                                  im(st.kind) + " " +
-                                 st.kind);
+                                 st.kind + "\n");
            else
-              System.out.println("Line: " + st.beginLine +
+              gui.jTextArea1.append("Line: " + st.beginLine +
                                  " Column: " + st.beginColumn +
                                  " " + st.image +
-                                 "  " + im(st.kind) + "  "+t.kind);
+                                 "  " + im(st.kind) + "  "+t.kind + "\n");
           st = st.next;
         } while (st != t.next);
-    } while (t.kind != langXConstants.EOF);
+    } while (t.kind != prataLangConstants.EOF);
 }
-
-// Produções de Entrada para Iniciar a Análise
-//void Input() : {} {
-//    (Token())*
-//}
-
-//void Token() : {} {
-//    < IDENTIFIER > | < INTEGER > | < FLOAT > | < STRING_LITERAL > | < KEYWORD_MAKE > |
-//    < KEYWORD_END > | < KEYWORD_CONST > | < KEYWORD_VAR > | < OPERATOR_PLUS > |
-//    < OPERATOR_MINUS > | < OPERATOR_MULT > | < OPERATOR_DIV > | < OPERATOR_POW > |
-//    < OPERATOR_MOD > | < OPERATOR_MOD_INT > | < OPERATOR_EQ > | < OPERATOR_NEQ > |
-//    < OPERATOR_LT > | < OPERATOR_GT > | < OPERATOR_LE > | < OPERATOR_GE > |
-//    < LOGICAL_AND > | < LOGICAL_OR > | < LOGICAL_NOT >
-//}
-
-
