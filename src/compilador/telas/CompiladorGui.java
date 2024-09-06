@@ -556,7 +556,12 @@ public class CompiladorGui extends javax.swing.JFrame {
 
     private void MenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemSairActionPerformed
         // TODO add your handling code here:
-        
+        if (filepath != null){
+            SalvarArquivo(filepath);
+        }
+        else {
+            Salvar_Como();
+        }
         System.exit(0);
         
     }//GEN-LAST:event_MenuItemSairActionPerformed

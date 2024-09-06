@@ -97,23 +97,25 @@ public interface prataLangConstants {
   /** RegularExpression Id. */
   int SEMICOLON = 54;
   /** RegularExpression Id. */
-  int LPAREN = 55;
+  int TWO_POINTS = 55;
   /** RegularExpression Id. */
-  int RPAREN = 56;
+  int LPAREN = 56;
   /** RegularExpression Id. */
-  int INVALID_LEXICAL = 57;
+  int RPAREN = 57;
   /** RegularExpression Id. */
-  int INVALID_CONST_STRING_WITH_LINEBREAK = 58;
+  int INVALID_LEXICAL = 58;
   /** RegularExpression Id. */
-  int INVALID_CONST_STRING_END = 59;
+  int INVALID_CONST_STRING_WITH_LINEBREAK = 59;
   /** RegularExpression Id. */
-  int INVALID_CONST_FLOAT_SIZE = 60;
+  int INVALID_CONST_STRING_END = 60;
   /** RegularExpression Id. */
-  int INVALID_CONST_INT_SIZE = 61;
+  int INVALID_CONST_FLOAT_SIZE = 61;
   /** RegularExpression Id. */
-  int INVALID_COMMENT_CLOSE = 62;
+  int INVALID_CONST_INT_SIZE = 62;
   /** RegularExpression Id. */
-  int INVALID_IDENTIFIER = 63;
+  int INVALID_COMMENT_CLOSE = 63;
+  /** RegularExpression Id. */
+  int INVALID_IDENTIFIER = 64;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -179,6 +181,7 @@ public interface prataLangConstants {
     "\".\"",
     "\",\"",
     "\";\"",
+    "\":\"",
     "\"(\"",
     "\")\"",
     "<INVALID_LEXICAL>",
