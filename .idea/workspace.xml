@@ -9,16 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Atualização das Regras com todos os vizuais funcionando.">
+    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Entrega final, pedidos do professor.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/regras/ParseException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/regras/SimpleCharStream.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/regras/Token.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/regras/TokenMgrError.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLang.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLangConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLangTokenManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/regras/regras.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/compilador/telas/CompiladorGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/telas/CompiladorGui.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,6 +117,7 @@
       <workItem from="1725591301133" duration="951000" />
       <workItem from="1725592289152" duration="7307000" />
       <workItem from="1725662699982" duration="65000" />
+      <workItem from="1725662784929" duration="746000" />
     </task>
     <task id="LOCAL-00001" summary="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
       <option name="closed" value="true" />
@@ -134,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725546149272</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Matheus: Entrega final, pedidos do professor.">
+      <option name="closed" value="true" />
+      <created>1725662983921</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1725662983921</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,6 +171,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj" />
-    <option name="LAST_COMMIT_MESSAGE" value="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj" />
+    <MESSAGE value="Matheus: Entrega final, pedidos do professor." />
+    <option name="LAST_COMMIT_MESSAGE" value="Matheus: Entrega final, pedidos do professor." />
   </component>
 </project>

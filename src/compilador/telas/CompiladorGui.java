@@ -641,6 +641,7 @@ public class CompiladorGui extends javax.swing.JFrame {
         }catch (Exception e) {
             
         }
+        jTextArea1.setText("");
     }
     
     public void Salvar_Como(){
@@ -655,6 +656,7 @@ public class CompiladorGui extends javax.swing.JFrame {
             setTitle(filename);
         }
         SalvarArquivo(filepath);
+        jTextArea1.setText("");
     }
     
     public void Abrir(){
@@ -679,6 +681,7 @@ public class CompiladorGui extends javax.swing.JFrame {
         } catch (IOException e) {
             System.out.println("File Not Found");
         }
+        jTextArea1.setText("");
     }
     
     public void Novo(){
@@ -692,7 +695,8 @@ public class CompiladorGui extends javax.swing.JFrame {
             obj.setResizable(false);
             obj.setVisible(true);
             obj.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }   
+        }
+        jTextArea1.setText("");
     }
     
 
