@@ -77,9 +77,9 @@ public class prataLang {
 
       if (parser.token_source.foundLexError() != 0)
             gui.jTextArea1.append(
-              parser.token_source.foundLexError() + " Erro Lexico encontrado!! \n"
+              parser.token_source.foundLexError() + " Lexic Error Found \n"
             );
-      else gui.jTextArea1.append(" Program successfully analized \n");
+      else gui.jTextArea1.append(" Successfully Analized Program \n");
   }
 
   //metodo auxiliar
@@ -116,7 +116,7 @@ SKIP : {
 }
 
 <multilinecomment> SKIP : {
-    "*/": DEFAULT
+    "*/" : DEFAULT   // Sai do modo de comentário ao encontrar */
     | <~[]>
 }
 
@@ -132,81 +132,220 @@ SKIP : {
 // PALAVRAS RESERVADAS
 TOKEN : {
       < MAKE : "make" >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");;
+    }
     | < END  : "end"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < CONST  : "const"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < INT  : "int"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < REAL  : "real"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < CHAR  : "char"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < BOOL  : "bool"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < VAR  : "var"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < GET  : "get"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < PUT  : "put"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < IF  : "if"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < THEN  : "then"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < ELSE  : "else"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < WHILE  : "while"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
     | < DO  : "do"  >
+    {
+                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
 }
 
 // OPERADORES LOGICOS
 TOKEN :
 {
        < NOT : "!" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < OR : "|" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < END_LOGIC : "&" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
 }
 
 // OPERADORES RELACIONAIS
 TOKEN :
 {
        < ASSIGN : "->" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < EQUAL : "=" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < DIFFERENT : "<>" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < MINOR : "<" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < MINOR_EQUAL : "<=" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < BIGGER : ">" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < BIGGER_EQUAL : ">=" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
 }
 // OPERADORES ARITMETRIC
 TOKEN :
 {
        < PLUS : "+" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < MINUS : "-" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < MULTIPLICATION : "*" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < DIVISION : "/" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < POTENCY : "**" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < ENTIRE_DIVISION : "%" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < DIVISION_REST : "%%" >
+     {
+                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
 }
 // CONSTANTES
 TOKEN :
 {
        < TRUE : "true" >
+     {
+                 error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < FALSE   : "false" >
+     {
+                 error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < int_constant  : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? >
-     | < char_constant : ("\"" ~["\"", "\n", "\r"] "\"" | "'" ~["'", "\n", "\r"] "'") >
+     {
+                 error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
+     | < char_constant : ("\"" ~["\"", "\n", "\r", "\f"] "\"" | "'" ~["'", "\n", "\r", "\f"] "'") >
+     {
+                 error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < float_constant : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? (["0"-"9"])? "." (["0"-"9"]) (["0"-"9"])? >
+     {
+                 error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < string_constant : // constante string como "abcd bcda" ou 'abcd bcda'
            ("\"" (~["\"", "\n", "\r"])* "\"" | "'" (~["'", "\n", "\r"])* "'")
        >
+     {
+                 error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
      | < null_constant   : "null" >
+     {
+                 error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+     }
 
 }
 
 // IDENTIFICADORES
 TOKEN :
 {
-    < IDENT  : ( ["a"-"z", "A"-"Z"]  | "_" ) ( ["a"-"z", "A"-"Z"]  |"_"| ["0" - "9"] ( ["a"-"z", "A"-"Z"]  "_" ) )* (["a"-"z", "A"-"Z"] | "_") >
+    < IDENT  : ( ["a"-"z", "A"-"Z"]  | "_" ) ( ["a"-"z", "A"-"Z"]  |"_"| ["0" - "9"] ( ["a"-"z", "A"-"Z"] | "_" ) )* (["a"-"z", "A"-"Z"] | "_") >
+    {
+                error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
 }
 
 // SIMBULOS ESPECIAIS
 TOKEN :
 {
-    < DOT : "." > |
-    < COMMA : "," > |
-    < SEMICOLON : ";" > |
-    < LPAREN : "(" > |
+    < DOT : "." >
+    {
+        error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
+    |
+    < COMMA : "," >
+    {
+            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
+    |
+    < SEMICOLON : ";" >
+    {
+            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
+    |
+    < LPAREN : "(" >
+    {
+            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
+    |
     < RPAREN : ")" >
+    {
+            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + image + " Code: ");
+    }
 }
 
 // Token para erros léxicos
@@ -217,6 +356,8 @@ TOKEN : {
         "0"-"9",
         "\n", "\r",
         "\t", "\f",
+        "\"",
+        "'",
         " ",
         "(", ")",
         "[", "]",
@@ -238,66 +379,70 @@ TOKEN : {
         "^",
         "_"]) + >
             {
-                gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Character Found: " + image + " /n");
+                error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Character Found: " + image + " Code: ");;
                 countLexError++;
             }
    |
         <INVALID_CONST_STRING_END:
-        "\"" (~ ["\n", "\r", "\""])* ["\n", "\r"]>
+        "\"" (~ ["\n", "\r", "\"", "\f"])* ["\n", "\r", "\f", "'"] | "'" (~ ["\n", "\r", "\"", "\f"])* ["\n", "\r", "\f", "\""] >
         {
-            gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid String/Character Ending: " + image + " /n");
+            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid String/Character Ending: " + image + " Code: ");;
             countLexError++;
         }
   |
         <INVALID_CONST_INT_SIZE:
-        (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])*>
+        (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])+>
         {
-            gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Int Size: " + image + " /n");
+            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Int Size: " + image + " Code: ");;
             countLexError++;
         }
  |
        <INVALID_CONST_FLOAT_SIZE:
-      ((["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])* "." (["0"-"9"]) (["0"-"9"]) | (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])* "." (["0"-"9"]) (["0"-"9"]) (["0"-"9"])* | (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])  "." (["0"-"9"]) (["0"-"9"]) (["0"-"9"])*)>
+      ((["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])+ "." (["0"-"9"]) (["0"-"9"]) | (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])+ "." (["0"-"9"]) (["0"-"9"]) (["0"-"9"])+ | (["0"-"9"]) (["0"-"9"]) (["0"-"9"]) (["0"-"9"])  "." (["0"-"9"]) (["0"-"9"]) (["0"-"9"])+)>
        {
-               gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Float Size: " + image + " /n");
+               error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Float Size: " + image + " Code: ");;
                countLexError++;
        }
 |
        <INVALID_COMMENT_CLOSE:
        "*/" >
        {
-            gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Closing of a Comment: " + image + " /n");
+            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Closing of a Comment: " + image + " Code: ");;
             countLexError++;
        }
 |
-    <INVALID_IDENTIFIER:
-           ( ( ["A"-"Z", "a"-"z"] | "_" ) ( ["A"-"Z", "a"-"z"] |"_"| ["0" - "9"] ( ["A"-"Z", "a"-"z"] "_" ) )* ["0" - "9"] | ( ["A"-"Z", "a"-"z"] | "_")  (["A"-"Z", "a"-"z"] | "_" | ["0" - "9"] ["0" - "9"] )* ["A"-"Z", "a"-"z"] "_" ) >
-           {
-                gui.jTextArea1.append("Line " + input_stream.getEndLine() + " Column " + input_stream.getEndColumn() + " - Invalid Identifier: " + image + " /n");
-                countLexError++;
-           }
+       <INVALID_IDENTIFIER:
+       (((["A"-"Z", "a"-"z"] | "_") (["A"-"Z", "a"-"z"] | "_" | ["0" - "9"] (["A"-"Z", "a"-"z"] | "_"))* ["0" - "9"]) | ((["A"-"Z", "a"-"z"] | "_") (["A"-"Z", "a"-"z"] | "_" | ["0" - "9"] ["0" - "9"] )* (["A"-"Z", "a"-"z"] | "_") ) | (( ["0" - "9"] ) ( ["a"-"z", "A"-"Z"]  |"_"| ["0" - "9"] ( ["a"-"z", "A"-"Z"] | "_" ) )* (["a"-"z", "A"-"Z"] | "_")) ) >
+       {
+           error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Identifier: " + image + " Code: ");;
+           countLexError++;
+       }
 }
+
 
 JAVACODE void program(CompiladorGui gui)
 {
 Token t;
     do
     {
-    t = getNextToken(gui);
+    t = getNextToken();
     Token st = t;
         while ( st.specialToken != null)
-        st = st.specialToken;
-        do {
-           if ( Menosshort )
-          gui.jTextArea1.append(st.image + "  " +
-                                 im(st.kind) + " " +
-                                 st.kind + "\n");
-           else
-              gui.jTextArea1.append("Line: " + st.beginLine +
-                                 " Column: " + st.beginColumn +
-                                 " " + st.image +
-                                 "  " + im(st.kind) + "  "+t.kind + "\n");
-          st = st.next;
+            st = st.specialToken;
+            do {
+               if ( !Menosshort ) {
+                   gui.jTextArea1.append(token_source.error + im(st.kind) + "\n");
+                       token_source.error = "";
+               }
+               else {
+                   System.out.println(token_source.error + im(st.kind) + "\n");
+                   token_source.error = "";
+               }
+               st = st.next;
         } while (st != t.next);
     } while (t.kind != prataLangConstants.EOF);
+    if(token_source.curLexState == 1){
+          gui.jTextArea1.append(" Error to end Block Comment \n");
+          token_source.countLexError++;
+    }
 }
