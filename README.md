@@ -9,3 +9,10 @@ no terminal rodar
 depois :
 
 ## docker-compose up
+
+
+
+
+para rodar o .jar , na pasta onde esta o .jar , rodar o comando 
+
+##  java -jar compiladores2.jar

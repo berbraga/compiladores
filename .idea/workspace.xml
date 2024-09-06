@@ -4,35 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
-      <change afterPath="$PROJECT_DIR$/EXEMPLOS_TESTE/ex_1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EXEMPLOS_TESTE/ex_2_err1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EXEMPLOS_TESTE/ex_3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiladores2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$17.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$18.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$19.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$20.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$20.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/telas/CompiladorGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/telas/CompiladorGui.java" afterDir="false" />
-    </list>
+    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,31 +33,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Compilador.executor&quot;: &quot;Run&quot;,
-    &quot;Application.CompiladorGui.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Salvar.executor&quot;: &quot;Run&quot;,
-    &quot;Application.compilador.executor&quot;: &quot;Run&quot;,
-    &quot;Application.prataLang.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mathe/Documents/compiladores&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Compilador.executor": "Run",
+    "Application.CompiladorGui.executor": "Run",
+    "Application.Salvar.executor": "Run",
+    "Application.compilador.executor": "Run",
+    "Application.prataLang.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/mathe/Documents/compiladores",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Compilador" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="compilador.Compilador" />
