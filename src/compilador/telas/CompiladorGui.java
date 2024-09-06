@@ -5,6 +5,7 @@
 package compilador.telas;
 
 //imports para depois que utilizar o javacc em regras.jj
+
 import compilador.regras.ParseException;
 import compilador.regras.prataLang;
 
