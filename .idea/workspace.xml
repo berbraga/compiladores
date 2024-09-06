@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/regras.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/regras/regras.jj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +65,7 @@
   <component name="RunManager">
     <configuration name="Compilador" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="compilador.Compilador" />
-      <module name="compiladores" />
+      <module name="compiladores2" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -74,8 +74,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
       </set>
     </attachedChunks>
   </component>
@@ -110,6 +110,8 @@
       <workItem from="1725555855714" duration="1481000" />
       <workItem from="1725574342798" duration="7380000" />
       <workItem from="1725581806726" duration="1940000" />
+      <workItem from="1725591301133" duration="951000" />
+      <workItem from="1725592289152" duration="7307000" />
     </task>
     <task id="LOCAL-00001" summary="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
       <option name="closed" value="true" />
