@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
