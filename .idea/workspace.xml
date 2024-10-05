@@ -6,63 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLangTokenManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLangTokenManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$17.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$18.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$19.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$20.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$20.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/telas/CompiladorGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/Compilador.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/ParseException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/SimpleCharStream.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/Token.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/TokenMgrError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/prataLang.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/prataLangConstants.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/prataLangTokenManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$10.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$11.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$12.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$13.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$14.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$15.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$16.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$17.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$18.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$19.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$20.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui$9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/CompiladorGui.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/Salvar$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/Salvar$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/Salvar$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/Salvar.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/TextLineNumber$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/telas/TextLineNumber.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/telas/CompiladorGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/telas/CompiladorGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/ParseException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/SimpleCharStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/TokenMgrError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLang.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLangConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLangTokenManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/regras/regras.jj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,6 +54,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/User/Documents/compiladores",
     "node.js.detected.package.eslint": "true",
@@ -129,8 +81,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
       </set>
     </attachedChunks>
   </component>
@@ -168,6 +120,8 @@
       <workItem from="1725591301133" duration="951000" />
       <workItem from="1725592289152" duration="7307000" />
       <workItem from="1725665561202" duration="3448000" />
+      <workItem from="1728146387525" duration="6205000" />
+      <workItem from="1728152690367" duration="1514000" />
     </task>
     <task id="LOCAL-00001" summary="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
       <option name="closed" value="true" />
