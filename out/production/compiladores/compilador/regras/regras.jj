@@ -1,5 +1,6 @@
 options {
     STATIC = false;
+    DEBUG_LOOKAHEAD = true;
 }
 PARSER_BEGIN(prataLang)
 package compilador.regras;
@@ -9,6 +10,7 @@ public class prataLang {
 
   final static String Version = "PrataLang Compiler - Version 1.0 - 2024";
   boolean Menosshort = false;
+  int countParseError;
 
   public static void main(String[] args) throws ParseException {
     String filename = ""; // nome do arquivo a ser analizado
@@ -58,6 +60,7 @@ public class prataLang {
 
     // Metodo que é chamado no CompiladorGui para compilar pelo botão e pelo menu
   public static void Compile(String file, prataLang parser, CompiladorGui gui) throws ParseException {
+      boolean debug = false;
       String filename = file; // nome do arquivo a ser analizado
       boolean ms = false;
 
@@ -72,14 +75,32 @@ public class prataLang {
             return;
       }
 
-      parser.Menosshort = ms;
-      parser.program(gui); //chama o metodo que faz a analise
+      if(!debug) parser.disable_tracing();
 
-      if (parser.token_source.foundLexError() != 0)
-            gui.jTextArea1.append(
-              parser.token_source.foundLexError() + " Lexic Error Found \n"
-            );
-      else gui.jTextArea1.append(" Successfully Analized Program \n");
+      parser.Menosshort = ms;
+
+      try{
+          parser.program(gui); //chama o metodo que faz a analise
+      }
+      catch (ParseException e){
+          System.err.println(e.getMessage());
+          parser.countParseError = 1;
+      }
+      finally{
+          if (parser.token_source.foundLexError() != 0){
+              gui.jTextArea1.append(
+                  parser.token_source.foundLexError() + " Lexic Error Found \n"
+              );
+              if (parser.countParseError != 0){
+                  gui.jTextArea1.append(
+                          parser.countParseError + " Syntactic Errors found"
+                  );
+              }
+          }
+          else gui.jTextArea1.append(" Successfully Analized Program \n");
+      }
+
+
   }
 
   //metodo auxiliar
@@ -159,6 +180,10 @@ TOKEN : {
     | < BOOL : ("b" | "B") ("o" | "O") ("o" | "O") ("l" | "L") >
     {
                   error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    }
+    | <STRING : ("s" | "S") ("t" | "T") ("r" | "R") ("i" | "i") ("n" | "N") ("g" | "G")>
+    {
+                   error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
     }
     | < VAR : ("v" | "V") ("a" | "A") ("r" | "R") >
     {
@@ -378,8 +403,8 @@ TOKEN : {
         "*",
         "/",
         "&",
-        "|",
         "!",
+        "|",
         "%",
         "^",
         "_"]) + >
@@ -431,7 +456,7 @@ TOKEN : {
        }
 }
 
-JAVACODE void program(CompiladorGui gui)
+void program(CompiladorGui gui) :
 {
 Token t;
     do
@@ -456,4 +481,217 @@ Token t;
           gui.jTextArea1.append(" Error to end Block Comment \n");
           token_source.countLexError++;
     }
+}
+{
+  <MAKE> <IDENT> [declaracao()] [listacomandos()] <END> <DOT> <EOF>
+}
+
+void declaracao() :
+{
+}
+{
+    declaracaoV() [declaracaoC()] | declaracaoC() [declaracaoV()]
+}
+
+void declaracaoC() :
+{
+}
+{
+    <CONST> listadeconstante() <END> <SEMICOLON>
+}
+
+void listadeconstante() :
+{
+}
+{
+    tipoC() <TWO_POINTS> listadeident() <EQUAL> valor() <DOT> _listadeconstante()
+}
+
+void _listadeconstante() :
+{
+}
+{
+    [listadeconstante()]
+}
+
+void tipoC() :
+{
+}
+{
+    <INT> | <REAL> | <CHAR> | <STRING>
+}
+
+void listadeident() :
+{
+}
+{
+    <IDENT> _listadeident()
+}
+
+void _listadeident() :
+{
+}
+{
+    [<COMMA> listadeident()]
+}
+
+void valor() :
+{
+}
+{
+    <int_constant> | <float_constant> | <char_constant> | <string_constant>
+}
+
+void declaracaoV() :
+{
+}
+{
+    <VAR> listadevariavel() <END> <SEMICOLON>
+}
+
+void listadevariavel() :
+{
+}
+{
+    tipoV() <TWO_POINTS> listadeident() <DOT> _listadevariavel()
+}
+
+void _listadevariavel() :
+{
+}
+{
+    [listadevariavel()]
+}
+
+void tipoV() :
+{
+}
+{
+    <INT> | <REAL> | <CHAR> | <BOOL> | <STRING>
+}
+
+void comandoatribuaicao() :
+{
+}
+{
+    expressao() <ASSIGN> <IDENT> <DOT>
+}
+
+void comandoentrada() :
+{
+}
+{
+    <GET> <LPAREN> listadeident() <RPAREN> <DOT>
+}
+
+void comandosaida() :
+{
+}
+{
+    <PUT> <LPAREN> listadeidenteconst() <RPAREN> <DOT>
+}
+
+void listadeidenteconst() :
+{
+}
+{
+    lic() (<COMMA> lic())*
+}
+
+void lic() :
+{
+}
+{
+    <IDENT> | tipoC()
+}
+
+void comandoselecao() :
+{
+}
+{
+    <IF> elemento() <THEN> listacomandos() [<ELSE> listacomandos()] <END> <DOT>
+}
+
+void comandorepeticao() :
+{
+}
+{
+    <WHILE> elemento() <DO> listacomandos() <END> <DOT>
+}
+
+void listacomandos() :
+{
+}
+{
+    comandos() [listacomandos()]
+}
+
+void comandos() :
+{
+}
+{
+    comandoatribuaicao() | comandoentrada() | comandorepeticao() | comandosaida() | comandoselecao()
+}
+
+void elemento() :
+{
+}
+{
+    <IDENT> | <int_constant> | <float_constant> | <char_constant> | <string_constant> | <TRUE> | <FALSE> | [<NOT>] <LPAREN> expressao() <RPAREN>
+}
+
+void expressao() :
+{
+}
+{
+    expressaoaroulo() [_expressao()]
+}
+
+void _expressao() :
+{
+}
+{
+    <EQUAL> expressaoaroulo() | <DIFFERENT> expressaoaroulo() | <BIGGER> expressaoaroulo() | <MINOR> expressaoaroulo() | <BIGGER_EQUAL> expressaoaroulo() | <MINOR_EQUAL> expressaoaroulo()
+}
+
+void expressaoaroulo() :
+{
+}
+{
+    termo2() [menorP()]
+}
+
+void menorP() :
+{
+}
+{
+    <PLUS> expressaoaroulo() | <MINUS> expressaoaroulo() | <OR> expressaoaroulo()
+}
+
+void termo2() :
+{
+}
+{
+    termo1() [mediaP()]
+}
+
+void mediaP() :
+{
+}
+{
+    <MULTIPLICATION> termo2() | <DIVISION> termo2() | <ENTIRE_DIVISION> termo2() | <DIVISION_REST> termo2() | <END_LOGIC> termo2()
+}
+
+void termo1() :
+{
+}
+{
+    elemento() [maiorP()]
+}
+
+void maiorP() :
+{
+}
+{
+    <POTENCY> termo1()
 }
