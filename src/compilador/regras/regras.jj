@@ -5,6 +5,8 @@ options {
 PARSER_BEGIN(prataLang)
 package compilador.regras;
 import java.io.*;
+import java.util.Objects;
+
 import compilador.telas.CompiladorGui;
 public class prataLang {
 
@@ -77,14 +79,19 @@ public class prataLang {
 
       if(!debug) parser.disable_tracing();
 
+
       parser.Menosshort = ms;
 
       try{
-          parser.program(gui); //chama o metodo que faz a analise
+          parser.lex(gui);//chama o metodo que faz a analise
+          parser.ReInit(new java.io.FileInputStream(filename));
+          parser.program();
       }
       catch (ParseException e){
-          System.err.println(e.getMessage());
+          gui.jTextArea1.append(e.getMessage());
           parser.countParseError = 1;
+      } catch (FileNotFoundException e) {
+          throw new RuntimeException(e);
       }
       finally{
           if (parser.token_source.foundLexError() != 0){
@@ -154,229 +161,88 @@ SKIP : {
 // PALAVRAS RESERVADAS
 TOKEN : {
       < MAKE : ("m" | "M") ("a" | "A") ("k" | "K") ("e" | "E") >
-    {
-                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");;
-    }
     | < END  : ("e" | "E") ("n" | "N") ("d" | "D") >
-    {
-                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < CONST  : ("c" | "C") ("o" | "O") ("n" | "N") ("s" | "S") ("t" | "T") >
-    {
-                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < INT  : ("i" | "I") ("n" | "N") ("t" | "T") >
-    {
-                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < REAL : ("r" | "R") ("e" | "E") ("a" | "A") ("l" | "L") >
-    {
-                    error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < CHAR : ("c" | "C") ("h" | "H") ("a" | "A") ("r" | "R") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < BOOL : ("b" | "B") ("o" | "O") ("o" | "O") ("l" | "L") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | <STRING : ("s" | "S") ("t" | "T") ("r" | "R") ("i" | "i") ("n" | "N") ("g" | "G")>
-    {
-                   error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < VAR : ("v" | "V") ("a" | "A") ("r" | "R") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < GET : ("g" | "G") ("e" | "E") ("t" | "T") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < PUT : ("p" | "P") ("u" | "U") ("t" | "T") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < IF : ("i" | "I") ("f" | "F") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < THEN : ("t" | "T") ("h" | "H") ("e" | "E") ("n" | "N") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < ELSE : ("e" | "E") ("l" | "L") ("s" | "S") ("e" | "E") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < WHILE : ("w" | "W") ("h" | "H") ("i" | "I") ("l" | "L") ("e" | "E") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     | < DO : ("d" | "D") ("o" | "O") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
 }
 
 // OPERADORES LOGICOS
 TOKEN :
 {
        < NOT : "!" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < OR : "|" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < END_LOGIC : "&" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
 }
 
 // OPERADORES RELACIONAIS
 TOKEN :
 {
        < ASSIGN : "->" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < EQUAL : "=" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < DIFFERENT : "<>" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < MINOR : "<" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < MINOR_EQUAL : "<=" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < BIGGER : ">" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < BIGGER_EQUAL : ">=" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
 }
 
 // OPERADORES ARITMETRIC
 TOKEN :
 {
        < PLUS : "+" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < MINUS : "-" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < MULTIPLICATION : "*" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < DIVISION : "/" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < POTENCY : "**" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < ENTIRE_DIVISION : "%" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < DIVISION_REST : "%%" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
 }
 
 // CONSTANTES
 TOKEN :
 {
        < int_constant  : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? >
-      {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-      }
       | < char_constant : ("\"" ~["\"", "\n", "\r", "\f"] "\"" | "'" ~["'", "\n", "\r", "\f"] "'") >
-      {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-      }
       | < float_constant : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? (["0"-"9"])? "." (["0"-"9"]) (["0"-"9"])? >
-      {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-      }
       | < string_constant : // constante string como "abcd bcda" ou 'abcd bcda'
       ("\"" (~["\"", "\n", "\r"])* "\"" | "'" (~["'", "\n", "\r"])* "'")>
-      {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-      }
      | < TRUE : ("t" | "T") ("r" | "R") ("u" | "U") ("e" | "E") >
-     {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < FALSE   : ("f" | "F") ("a" | "A") ("l" | "L") ("s" | "S") ("e" | "E") >
-     {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
      | < null_constant   : ("n" | "N") ("u" | "U") ("l" | "L") ("l" | "L") >
-     {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
 }
 
 // IDENTIFICADORES
 TOKEN :
 {
     < IDENT  : ( ["a"-"z", "A"-"Z"]  | "_" ) ( ["a"-"z", "A"-"Z"] |"_"| ["0" - "9"] (["a"-"z", "A"-"Z"] | "_") )* (["a"-"z", "A"-"Z"] | "_")* >
-    {
-                error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
 }
 
 // SIMBULOS ESPECIAIS
 TOKEN :
 {
     < DOT : "." >
-    {
-        error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     |
     < COMMA : "," >
-    {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     |
     < SEMICOLON : ";" >
-    {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     |
     < TWO_POINTS : ":" >
-    {
-        error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     |
     < LPAREN : "(" >
-    {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
     |
     < RPAREN : ")" >
-    {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
 }
 
 // Token para erros léxicos
@@ -456,31 +322,36 @@ TOKEN : {
        }
 }
 
-void program(CompiladorGui gui) :
-{
-Token t;
-    do
-    {
-    t = getNextToken();
-    Token st = t;
-        while ( st.specialToken != null)
-            st = st.specialToken;
-            do {
-               if ( !Menosshort ) {
-                   gui.jTextArea1.append(token_source.error + st.kind + " " + im(st.kind) + "\n");
-                       token_source.error = "";
-               }
-               else {
-                   System.out.println(token_source.error + st.kind + " " + im(st.kind) + "\n");
-                   token_source.error = "";
-               }
-               st = st.next;
-        } while (st != t.next);
-    } while (t.kind != prataLangConstants.EOF);
-    if(token_source.curLexState == 1){
+JAVACODE void lex(CompiladorGui gui){
+      Token t;
+      do
+      {
+          t = getNextToken();
+          Token st = t;
+          while ( st.specialToken != null)
+          st = st.specialToken;
+          do {
+              if(token_source.error != ""){
+                  if ( !Menosshort ) {
+                      gui.jTextArea1.append(token_source.error + st.kind + " " + im(st.kind) + "\n");
+                      token_source.error = "";
+                  }
+                  else {
+                      System.out.println(token_source.error + st.kind + " " + im(st.kind) + "\n");
+                      token_source.error = "";
+                  }
+              }
+              st = st.next;
+          } while (st != t.next);
+      } while (t.kind != prataLangConstants.EOF);
+      if(token_source.curLexState == 1){
           gui.jTextArea1.append(" Error to end Block Comment \n");
           token_source.countLexError++;
-    }
+      }
+}
+
+void program() :
+{
 }
 {
   <MAKE> <IDENT> [declaracao()] [listacomandos()] <END> <DOT> <EOF>

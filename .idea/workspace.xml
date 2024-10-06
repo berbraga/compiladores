@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Analisador Sintático">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLang.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLang.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLangConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLangConstants.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLangTokenManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLangTokenManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/regras.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/regras/regras.jj" afterDir="false" />
@@ -39,32 +39,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Compilador.executor": "Run",
-    "Application.CompiladorGui.executor": "Run",
-    "Application.Salvar.executor": "Run",
-    "Application.compilador.executor": "Run",
-    "Application.prataLang.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/User/Documents/compiladores",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Compilador.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CompiladorGui.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Salvar.executor&quot;: &quot;Run&quot;,
+    &quot;Application.compilador.executor&quot;: &quot;Run&quot;,
+    &quot;Application.prataLang.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Documents/compiladores&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Compilador" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="compilador.Compilador" />
