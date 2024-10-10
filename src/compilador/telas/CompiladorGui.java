@@ -22,6 +22,10 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -44,7 +48,10 @@ public class CompiladorGui extends javax.swing.JFrame {
         initComponents();
         TextLineNumber tln = new TextLineNumber(TextArea);
         jScrollPane1.setRowHeaderView(tln);
-        
+        int spaceCount = 4;
+
+        ((PlainDocument) jTextArea1.getDocument()).setDocumentFilter(new ChangeTabToSpacesFilter(spaceCount));
+        ((PlainDocument) TextArea.getDocument()).setDocumentFilter(new ChangeTabToSpacesFilter(spaceCount));
         TextArea.addCaretListener(new CaretListener() {
             public void caretUpdate(CaretEvent e) {
                 JTextArea editArea = (JTextArea)e.getSource();
@@ -702,7 +709,39 @@ public class CompiladorGui extends javax.swing.JFrame {
         }
         jTextArea1.setText("");
     }
-    
+
+
+    private static class ChangeTabToSpacesFilter extends DocumentFilter {
+        private int spaceCount;
+        private String spaces = "";
+
+        public ChangeTabToSpacesFilter(int spaceCount) {
+            this.spaceCount = spaceCount;
+            for (int i = 0; i < spaceCount; i++) {
+                spaces += " ";
+            }
+        }
+
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
+                throws BadLocationException {
+            string = string.replace("\t", spaces);
+            super.insertString(fb, offset, string, attr);
+        }
+
+        @Override
+        public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
+            super.remove(fb, offset, length);
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+                throws BadLocationException {
+            text = text.replace("\t", spaces);
+            super.replace(fb, offset, length, text, attrs);
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAbrir;
