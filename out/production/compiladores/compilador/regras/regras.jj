@@ -12,7 +12,8 @@ public class prataLang {
 
   final static String Version = "PrataLang Compiler - Version 1.0 - 2024";
   boolean Menosshort = false;
-  int countParseError;
+  int countParseError = 0;
+  String error_s = "";
 
   public static void main(String[] args) throws ParseException {
     String filename = ""; // nome do arquivo a ser analizado
@@ -85,10 +86,11 @@ public class prataLang {
       try{
           parser.lex(gui);//chama o metodo que faz a analise
           parser.ReInit(new java.io.FileInputStream(filename));
-          parser.program();
+          if(parser.token_source.foundLexError() == 0){
+            parser.program();
+          }
       }
       catch (ParseException e){
-          gui.jTextArea1.append(e.getMessage());
           parser.countParseError = 1;
       } catch (FileNotFoundException e) {
           throw new RuntimeException(e);
@@ -98,11 +100,13 @@ public class prataLang {
               gui.jTextArea1.append(
                   parser.token_source.foundLexError() + " Lexic Error Found \n"
               );
-              if (parser.countParseError != 0){
-                  gui.jTextArea1.append(
-                          parser.countParseError + " Syntactic Errors found"
-                  );
-              }
+
+          }
+          else if (parser.countParseError != 0){
+              gui.jTextArea1.append(parser.error_s + "\n");
+              gui.jTextArea1.append(
+                  parser.countParseError + " Syntactic Errors found"
+              );
           }
           else gui.jTextArea1.append(" Successfully Analized Program \n");
       }
@@ -331,7 +335,7 @@ JAVACODE void lex(CompiladorGui gui){
           while ( st.specialToken != null)
           st = st.specialToken;
           do {
-              if(token_source.error != ""){
+              if(token_source.countLexError != 0){
                   if ( !Menosshort ) {
                       gui.jTextArea1.append(token_source.error + st.kind + " " + im(st.kind) + "\n");
                       token_source.error = "";
@@ -354,7 +358,32 @@ void program() :
 {
 }
 {
-  <MAKE> <IDENT> [declaracao()] [listacomandos()] <END> <DOT> <EOF>
+    try{
+        <MAKE>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Make");
+        countParseError = 1;
+    }
+    try{
+        <IDENT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier");
+        countParseError = 1;
+    }
+    [declaracao()] [listacomandos()]
+    try{
+        <END>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End");
+        countParseError = 1;
+    }
+    try{
+        <DOT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot");
+        countParseError = 1;
+    }
+    <EOF>
 }
 
 void declaracao() :
@@ -368,14 +397,53 @@ void declaracaoC() :
 {
 }
 {
-    <CONST> listadeconstante() <END> <SEMICOLON>
+    try{
+        <CONST>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Constant");
+        countParseError = 1;
+    }
+    listadeconstante()
+    try{
+        <END>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End");
+        countParseError = 1;
+    }
+    try{
+        <SEMICOLON>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Semicolon");
+        countParseError = 1;
+    }
 }
 
 void listadeconstante() :
 {
 }
 {
-    tipoC() <TWO_POINTS> listadeident() <EQUAL> valor() <DOT> _listadeconstante()
+    tipoC()
+    try{
+        <TWO_POINTS>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Two Points (:)");
+        countParseError = 1;
+    }
+    listadeident()
+    try{
+        <EQUAL>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Equals (=)");
+        countParseError = 1;
+    }
+    valor()
+    try{
+        <DOT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot");
+        countParseError = 1;
+    }
+    _listadeconstante()
 }
 
 void _listadeconstante() :
@@ -389,20 +457,33 @@ void tipoC() :
 {
 }
 {
-    <INT> | <REAL> | <CHAR> | <STRING>
+    try{
+        <INT> | <REAL> | <CHAR> | <STRING>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Int, Real, Char or String");
+        countParseError = 1;
+    }
+
 }
 
 void listadeident() :
 {
 }
 {
-    <IDENT> _listadeident()
+    try{
+        <IDENT> _listadeident()
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier");
+        countParseError = 1;
+    }
+
 }
 
 void _listadeident() :
 {
 }
 {
+    //LookAhead Aqui...
     [<COMMA> listadeident()]
 }
 
@@ -410,21 +491,58 @@ void valor() :
 {
 }
 {
-    <int_constant> | <float_constant> | <char_constant> | <string_constant>
+    try{
+        <int_constant> | <float_constant> | <char_constant> | <string_constant>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Values");
+        countParseError = 1;
+    }
 }
 
 void declaracaoV() :
 {
 }
 {
-    <VAR> listadevariavel() <END> <SEMICOLON>
+    try{
+       <VAR>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Var");
+        countParseError = 1;
+    }
+    listadevariavel()
+    try{
+        <END>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End");
+        countParseError = 1;
+    }
+    try{
+        <SEMICOLON>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Semicolon");
+        countParseError = 1;
+    }
 }
 
 void listadevariavel() :
 {
 }
 {
-    tipoV() <TWO_POINTS> listadeident() <DOT> _listadevariavel()
+    tipoV()
+    try{
+        <TWO_POINTS>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Two Points (:)");
+        countParseError = 1;
+    }
+    listadeident()
+    try{
+        <DOT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot");
+        countParseError = 1;
+    }
+    _listadevariavel()
 }
 
 void _listadevariavel() :
@@ -438,56 +556,191 @@ void tipoV() :
 {
 }
 {
-    <INT> | <REAL> | <CHAR> | <BOOL> | <STRING>
+    try{
+        <INT> | <REAL> | <CHAR> | <BOOL> | <STRING>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Int, Real, Char, Bool or String");
+        countParseError = 1;
+    }
 }
 
 void comandoatribuaicao() :
 {
 }
 {
-    expressao() <ASSIGN> <IDENT> <DOT>
+    expressao()
+    try{
+        <ASSIGN>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Assign (->)");
+        countParseError = 1;
+    }
+    try{
+        <IDENT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier");
+        countParseError = 1;
+    }
+    try{
+        <DOT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot");
+        countParseError = 1;
+    }
 }
 
 void comandoentrada() :
 {
 }
 {
-    <GET> <LPAREN> listadeident() <RPAREN> <DOT>
+    try{
+        <GET>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Get");
+        countParseError = 1;
+    }
+    try{
+        <LPAREN>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Left Parenthesis");
+        countParseError = 1;
+    }
+    listadeident()
+    try{
+        <RPAREN>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Right Parenthesis");
+        countParseError = 1;
+    }
+    try{
+        <DOT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot");
+        countParseError = 1;
+    }
 }
 
 void comandosaida() :
 {
 }
 {
-    <PUT> <LPAREN> listadeidenteconst() <RPAREN> <DOT>
+    try{
+        <PUT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Put");
+        countParseError = 1;
+    }
+    try{
+        <LPAREN>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Left Parenthesis");
+        countParseError = 1;
+    }
+    listadeidenteconst()
+    try{
+        <RPAREN>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Right Parenthesis");
+        countParseError = 1;
+    }
+    try{
+        <DOT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot");
+        countParseError = 1;
+    }
 }
 
 void listadeidenteconst() :
 {
 }
 {
-    lic() (<COMMA> lic())*
+    try{
+        lic() (<COMMA> lic())*
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Comma");
+        countParseError = 1;
+    }
+
 }
 
 void lic() :
 {
 }
 {
-    <IDENT> | tipoC()
+    try{
+        <IDENT> | tipoC()
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: ");
+        countParseError = 1;
+    }
+
 }
 
 void comandoselecao() :
 {
 }
 {
-    <IF> elemento() <THEN> listacomandos() [<ELSE> listacomandos()] <END> <DOT>
+    try{
+        <IF>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: If");
+        countParseError = 1;
+    }
+     elemento()
+    try{
+        <THEN>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Then");
+        countParseError = 1;
+    }
+    listacomandos()
+    //LookAhead Aqui...
+    [<ELSE> listacomandos()]
+    try{
+        <END>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End");
+        countParseError = 1;
+    }
+    try{
+        <DOT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot");
+        countParseError = 1;
+    }
 }
 
 void comandorepeticao() :
 {
 }
 {
-    <WHILE> elemento() <DO> listacomandos() <END> <DOT>
+    try{
+        <WHILE>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: While");
+        countParseError = 1;
+    }
+    elemento()
+    try{
+        <DO>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Do");
+        countParseError = 1;
+    }
+    listacomandos()
+    try{
+        <END>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End");
+        countParseError = 1;
+    }
+    try{
+        <DOT>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot");
+        countParseError = 1;
+    }
 }
 
 void listacomandos() :
@@ -508,7 +761,13 @@ void elemento() :
 {
 }
 {
-    <IDENT> | <int_constant> | <float_constant> | <char_constant> | <string_constant> | <TRUE> | <FALSE> | [<NOT>] <LPAREN> expressao() <RPAREN>
+    try{
+        <IDENT> | <int_constant> | <float_constant> | <char_constant> | <string_constant> | <TRUE> | <FALSE> | [<NOT>] <LPAREN> expressao() <RPAREN>
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Element");
+        countParseError = 1;
+    }
+
 }
 
 void expressao() :
@@ -522,7 +781,13 @@ void _expressao() :
 {
 }
 {
-    <EQUAL> expressaoaroulo() | <DIFFERENT> expressaoaroulo() | <BIGGER> expressaoaroulo() | <MINOR> expressaoaroulo() | <BIGGER_EQUAL> expressaoaroulo() | <MINOR_EQUAL> expressaoaroulo()
+    try{
+        <EQUAL> expressaoaroulo() | <DIFFERENT> expressaoaroulo() | <BIGGER> expressaoaroulo() | <MINOR> expressaoaroulo() | <BIGGER_EQUAL> expressaoaroulo() | <MINOR_EQUAL> expressaoaroulo()
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Arithmetic or Logical operators");
+        countParseError = 1;
+    }
+
 }
 
 void expressaoaroulo() :
