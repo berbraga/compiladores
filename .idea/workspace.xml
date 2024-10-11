@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Tratamento de Erros relativamente Funcionando. (Faltam Algumas Coisas)" />
+    <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Tratamento de Erros relativamente Funcionando. (Faltam Algumas Coisas)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/regras.jj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/ParseException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/SimpleCharStream.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/TokenMgrError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLang.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLangConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLangTokenManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/regras/regras.jj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

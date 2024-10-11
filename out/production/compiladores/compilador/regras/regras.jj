@@ -131,6 +131,7 @@ public class prataLang {
 PARSER_END(prataLang)
 
 TOKEN_MGR_DECLS : {
+    String error = "";
     int countLexError = 0;
 
     public int foundLexError(){
@@ -171,7 +172,6 @@ TOKEN : {
     | < REAL : ("r" | "R") ("e" | "E") ("a" | "A") ("l" | "L") >
     | < CHAR : ("c" | "C") ("h" | "H") ("a" | "A") ("r" | "R") >
     | < BOOL : ("b" | "B") ("o" | "O") ("o" | "O") ("l" | "L") >
-    | <STRING : ("s" | "S") ("t" | "T") ("r" | "R") ("i" | "i") ("n" | "N") ("g" | "G")>
     | < VAR : ("v" | "V") ("a" | "A") ("r" | "R") >
     | < GET : ("g" | "G") ("e" | "E") ("t" | "T") >
     | < PUT : ("p" | "P") ("u" | "U") ("t" | "T") >
@@ -220,8 +220,6 @@ TOKEN :
        < int_constant  : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? >
       | < char_constant : ("\"" ~["\"", "\n", "\r", "\f"] "\"" | "'" ~["'", "\n", "\r", "\f"] "'") >
       | < float_constant : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? (["0"-"9"])? "." (["0"-"9"]) (["0"-"9"])? >
-      | < string_constant : // constante string como "abcd bcda" ou 'abcd bcda'
-      ("\"" (~["\"", "\n", "\r"])* "\"" | "'" (~["'", "\n", "\r"])* "'")>
      | < TRUE : ("t" | "T") ("r" | "R") ("u" | "U") ("e" | "E") >
      | < FALSE   : ("f" | "F") ("a" | "A") ("l" | "L") ("s" | "S") ("e" | "E") >
      | < null_constant   : ("n" | "N") ("u" | "U") ("l" | "L") ("l" | "L") >
@@ -283,15 +281,15 @@ TOKEN : {
                 countLexError++;
             }
    |
-        <INVALID_CONST_STRING_WITH_LINEBREAK:
+        <INVALID_CONST_CHAR_WITH_LINEBREAK:
         (("\"" (~ ["\""] | "\n" | "\r" )+ ("\"")) | ("'" (~ ["'"] | "\n" | "\r" )+ ("'")))>
         {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid String With LineBreak: " + "\"" + image + "\"" + " Code: ");;
+            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Char With LineBreak: " + "\"" + image + "\"" + " Code: ");;
             countLexError++;
         }
   |
-        <INVALID_CONST_STRING_END:
-        ( ("\"" (~ ["\"", "\n", "\r"])*) | ("'" (~ ["\"", "\n", "\r"])* ) | ("\"" (~ ["\"", "\n", "\r"])* "'") | ("'" (~ ["\"", "\n", "\r"])* "\""))>
+        <INVALID_CONST_CHAR_END:
+        ( ("\"" (~ ["\"", "\n", "\r"])? "'") | ("'" (~ ["\"", "\n", "\r"])? "\""))>
         {
             error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid String/Character Ending: " + "\"" + image + "\"" + " Code: ");;
             countLexError++;
@@ -458,9 +456,9 @@ void tipoC() :
 }
 {
     try{
-        <INT> | <REAL> | <CHAR> | <STRING>
+        <INT> | <REAL> | <CHAR>
     }catch(ParseException e){
-        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Int, Real, Char or String");
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Int, Real or Char");
         countParseError = 1;
     }
 
@@ -485,6 +483,13 @@ void _listadeident() :
 {
     //LookAhead Aqui...
     [<COMMA> listadeident()]
+    |
+    try{
+        listadeident()
+    }catch(ParseException e){
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Comma");
+        countParseError = 1;
+    }
 }
 
 void valor() :
@@ -492,7 +497,7 @@ void valor() :
 }
 {
     try{
-        <int_constant> | <float_constant> | <char_constant> | <string_constant>
+        <int_constant> | <float_constant> | <char_constant>
     }catch(ParseException e){
         error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Values");
         countParseError = 1;
@@ -557,9 +562,9 @@ void tipoV() :
 }
 {
     try{
-        <INT> | <REAL> | <CHAR> | <BOOL> | <STRING>
+        <INT> | <REAL> | <CHAR> | <BOOL>
     }catch(ParseException e){
-        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Int, Real, Char, Bool or String");
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Int, Real, Char or Bool");
         countParseError = 1;
     }
 }
@@ -671,7 +676,7 @@ void lic() :
     try{
         <IDENT> | tipoC()
     }catch(ParseException e){
-        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: ");
+        error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier or Const Type");
         countParseError = 1;
     }
 
@@ -695,7 +700,6 @@ void comandoselecao() :
         countParseError = 1;
     }
     listacomandos()
-    //LookAhead Aqui...
     [<ELSE> listacomandos()]
     try{
         <END>
@@ -762,7 +766,7 @@ void elemento() :
 }
 {
     try{
-        <IDENT> | <int_constant> | <float_constant> | <char_constant> | <string_constant> | <TRUE> | <FALSE> | [<NOT>] <LPAREN> expressao() <RPAREN>
+        <IDENT> | <int_constant> | <float_constant> | <char_constant> | <TRUE> | <FALSE> | [<NOT>] <LPAREN> expressao() <RPAREN>
     }catch(ParseException e){
         error_s = ("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Element");
         countParseError = 1;
