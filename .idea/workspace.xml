@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Tratamento de Erros relativamente Funcionando. (Faltam Algumas Coisas)">
-      <change afterPath="$PROJECT_DIR$/src/compilador/regras/Auxst.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/compilador/regras/InstructionArea.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLangConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLangConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores2/compilador/regras/regras.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/compilador/regras/prataLang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/regras/prataLang.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/regras/regras.jj" afterDir="false" />
     </list>

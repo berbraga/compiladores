@@ -774,7 +774,7 @@ void lic(CompiladorGui gui) :
 }
 {
     try{
-        <IDENT> | tipoC(gui)
+        <IDENT> | <INT> | <REAL> | <CHAR> | <TRUE> | <FALSE>
     }catch(Exception e){
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier or Const Type" + "\n");
         countParseError += 1;
