@@ -1,14 +1,19 @@
 options {
     STATIC = false;
+    DEBUG_LOOKAHEAD = true;
 }
 PARSER_BEGIN(prataLang)
 package compilador.regras;
 import java.io.*;
+import java.util.Objects;
+
 import compilador.telas.CompiladorGui;
 public class prataLang {
 
   final static String Version = "PrataLang Compiler - Version 1.0 - 2024";
   boolean Menosshort = false;
+  int countParseError = 0;
+  String error_s = "";
 
   public static void main(String[] args) throws ParseException {
     String filename = ""; // nome do arquivo a ser analizado
@@ -58,6 +63,7 @@ public class prataLang {
 
     // Metodo que é chamado no CompiladorGui para compilar pelo botão e pelo menu
   public static void Compile(String file, prataLang parser, CompiladorGui gui) throws ParseException {
+      boolean debug = false;
       String filename = file; // nome do arquivo a ser analizado
       boolean ms = false;
 
@@ -72,14 +78,40 @@ public class prataLang {
             return;
       }
 
-      parser.Menosshort = ms;
-      parser.program(gui); //chama o metodo que faz a analise
+      if(!debug) parser.disable_tracing();
 
-      if (parser.token_source.foundLexError() != 0)
-            gui.jTextArea1.append(
-              parser.token_source.foundLexError() + " Lexic Error Found \n"
-            );
-      else gui.jTextArea1.append(" Successfully Analized Program \n");
+
+      parser.Menosshort = ms;
+
+      try{
+          parser.lex(gui);
+          parser.ReInit(new java.io.FileInputStream(filename));
+          if(parser.token_source.foundLexError() == 0){
+            parser.program(gui);
+          }
+      }
+      catch (ParseException e){
+          parser.countParseError += 1;
+      } catch (FileNotFoundException e) {
+          throw new RuntimeException(e);
+      }
+      finally{
+          if (parser.token_source.foundLexError() != 0){
+              gui.jTextArea1.append(
+                  parser.token_source.foundLexError() + " Lexic Error Found \n"
+              );
+
+          }
+          else if (parser.countParseError != 0){
+              gui.jTextArea1.append(parser.error_s + "\n");
+              gui.jTextArea1.append(
+                  parser.countParseError + " Syntactic Errors found"
+              );
+          }
+          else gui.jTextArea1.append(" Successfully Analized Program \n");
+      }
+
+
   }
 
   //metodo auxiliar
@@ -99,6 +131,8 @@ public class prataLang {
 PARSER_END(prataLang)
 
 TOKEN_MGR_DECLS : {
+    String error = "";
+    int eherro;
     int countLexError = 0;
 
     public int foundLexError(){
@@ -132,220 +166,175 @@ SKIP : {
 
 // PALAVRAS RESERVADAS
 TOKEN : {
-      < MAKE : ("m" | "M") ("a" | "A") ("k" | "K") ("e" | "E") >
-    {
-                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");;
+      < MAKE : ("m" | "M") ("a" | "A") ("k" | "K") ("e" | "E") >{
+      eherro = 0;
+      }
+    | < END  : ("e" | "E") ("n" | "N") ("d" | "D") >{
+    eherro = 0;
     }
-    | < END  : ("e" | "E") ("n" | "N") ("d" | "D") >
-    {
-                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < CONST  : ("c" | "C") ("o" | "O") ("n" | "N") ("s" | "S") ("t" | "T") >{
+    eherro = 0;
     }
-    | < CONST  : ("c" | "C") ("o" | "O") ("n" | "N") ("s" | "S") ("t" | "T") >
-    {
-                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < INT  : ("i" | "I") ("n" | "N") ("t" | "T") >{
+    eherro = 0;
     }
-    | < INT  : ("i" | "I") ("n" | "N") ("t" | "T") >
-    {
-                     error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < REAL : ("r" | "R") ("e" | "E") ("a" | "A") ("l" | "L") >{
+    eherro = 0;
     }
-    | < REAL : ("r" | "R") ("e" | "E") ("a" | "A") ("l" | "L") >
-    {
-                    error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < CHAR : ("c" | "C") ("h" | "H") ("a" | "A") ("r" | "R") >{
+    eherro = 0;
     }
-    | < CHAR : ("c" | "C") ("h" | "H") ("a" | "A") ("r" | "R") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < BOOL : ("b" | "B") ("o" | "O") ("o" | "O") ("l" | "L") >{
+    eherro = 0;
     }
-    | < BOOL : ("b" | "B") ("o" | "O") ("o" | "O") ("l" | "L") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < VAR : ("v" | "V") ("a" | "A") ("r" | "R") >{
+    eherro = 0;
     }
-    | < VAR : ("v" | "V") ("a" | "A") ("r" | "R") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < GET : ("g" | "G") ("e" | "E") ("t" | "T") >{
+    eherro = 0;
     }
-    | < GET : ("g" | "G") ("e" | "E") ("t" | "T") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < PUT : ("p" | "P") ("u" | "U") ("t" | "T") >{
+    eherro = 0;
     }
-    | < PUT : ("p" | "P") ("u" | "U") ("t" | "T") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < IF : ("i" | "I") ("f" | "F") >{
+    eherro = 0;
     }
-    | < IF : ("i" | "I") ("f" | "F") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < THEN : ("t" | "T") ("h" | "H") ("e" | "E") ("n" | "N") >{
+    eherro = 0;
     }
-    | < THEN : ("t" | "T") ("h" | "H") ("e" | "E") ("n" | "N") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < ELSE : ("e" | "E") ("l" | "L") ("s" | "S") ("e" | "E") >{
+    eherro = 0;
     }
-    | < ELSE : ("e" | "E") ("l" | "L") ("s" | "S") ("e" | "E") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < WHILE : ("w" | "W") ("h" | "H") ("i" | "I") ("l" | "L") ("e" | "E") >{
+    eherro = 0;
     }
-    | < WHILE : ("w" | "W") ("h" | "H") ("i" | "I") ("l" | "L") ("e" | "E") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-    }
-    | < DO : ("d" | "D") ("o" | "O") >
-    {
-                  error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    | < DO : ("d" | "D") ("o" | "O") >{
+    eherro = 0;
     }
 }
 
 // OPERADORES LOGICOS
 TOKEN :
 {
-       < NOT : "!" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+       < NOT : "!" >{
+       eherro = 0;
+       }
+     | < OR : "|" >{
+     eherro = 0;
      }
-     | < OR : "|" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
-     | < END_LOGIC : "&" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < END_LOGIC : "&" >{
+     eherro = 0;
      }
 }
 
 // OPERADORES RELACIONAIS
 TOKEN :
 {
-       < ASSIGN : "->" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+       < ASSIGN : "->" >{
+       eherro = 0;
+       }
+     | < EQUAL : "=" >{
+     eherro = 0;
      }
-     | < EQUAL : "=" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < DIFFERENT : "<>" >{
+     eherro = 0;
      }
-     | < DIFFERENT : "<>" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < MINOR : "<" >{
+     eherro = 0;
      }
-     | < MINOR : "<" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < MINOR_EQUAL : "<=" >{
+     eherro = 0;
      }
-     | < MINOR_EQUAL : "<=" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < BIGGER : ">" >{
+     eherro = 0;
      }
-     | < BIGGER : ">" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
-     | < BIGGER_EQUAL : ">=" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < BIGGER_EQUAL : ">=" >{
+     eherro = 0;
      }
 }
 
 // OPERADORES ARITMETRIC
 TOKEN :
 {
-       < PLUS : "+" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+       < PLUS : "+" >{
+       eherro = 0;
+       }
+     | < MINUS : "-" >{
+     eherro = 0;
      }
-     | < MINUS : "-" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < MULTIPLICATION : "*" >{
+     eherro = 0;
      }
-     | < MULTIPLICATION : "*" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < DIVISION : "/" >{
+     eherro = 0;
      }
-     | < DIVISION : "/" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < POTENCY : "**" >{
+     eherro = 0;
      }
-     | < POTENCY : "**" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < ENTIRE_DIVISION : "%" >{
+     eherro = 0;
      }
-     | < ENTIRE_DIVISION : "%" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-     }
-     | < DIVISION_REST : "%%" >
-     {
-                      error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < DIVISION_REST : "%%" >{
+     eherro = 0;
      }
 }
 
 // CONSTANTES
 TOKEN :
 {
-       < int_constant  : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? >
-      {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+       < int_constant  : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? >{
+       eherro = 0;
+       }
+      | < char_constant : ("\"" ~["\"", "\n", "\r", "\f"] "\"" | "'" ~["'", "\n", "\r", "\f"] "'") >{
+      eherro = 0;
       }
-      | < char_constant : ("\"" ~["\"", "\n", "\r", "\f"] "\"" | "'" ~["'", "\n", "\r", "\f"] "'") >
-      {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+      | < float_constant : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? (["0"-"9"])? "." (["0"-"9"]) (["0"-"9"])? >{
+      eherro = 0;
       }
-      | < float_constant : (["0"-"9"]) (["0"-"9"])? (["0"-"9"])? (["0"-"9"])? "." (["0"-"9"]) (["0"-"9"])? >
-      {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-      }
-      | < string_constant : // constante string como "abcd bcda" ou 'abcd bcda'
-      ("\"" (~["\"", "\n", "\r"])* "\"" | "'" (~["'", "\n", "\r"])* "'")>
-      {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
-      }
-     | < TRUE : ("t" | "T") ("r" | "R") ("u" | "U") ("e" | "E") >
-     {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < TRUE : ("t" | "T") ("r" | "R") ("u" | "U") ("e" | "E") >{
+     eherro = 0;
      }
-     | < FALSE   : ("f" | "F") ("a" | "A") ("l" | "L") ("s" | "S") ("e" | "E") >
-     {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < FALSE   : ("f" | "F") ("a" | "A") ("l" | "L") ("s" | "S") ("e" | "E") >{
+     eherro = 0;
      }
-     | < null_constant   : ("n" | "N") ("u" | "U") ("l" | "L") ("l" | "L") >
-     {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+     | < null_constant   : ("n" | "N") ("u" | "U") ("l" | "L") ("l" | "L") >{
+     eherro = 0;
      }
 }
 
 // IDENTIFICADORES
 TOKEN :
 {
-    < IDENT  : ( ["a"-"z", "A"-"Z"]  | "_" ) ( ["a"-"z", "A"-"Z"]  |"_"| ["0" - "9"] ( ["a"-"z", "A"-"Z"] | "_" ) )* (["a"-"z", "A"-"Z"] | "_") >
-    {
-                error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    < IDENT  : ( ["a"-"z", "A"-"Z"]  | "_" ) ( ["a"-"z", "A"-"Z"] |"_"| ["0" - "9"] (["a"-"z", "A"-"Z"] | "_") )* (["a"-"z", "A"-"Z"] | "_")* >{
+    eherro = 0;
     }
 }
 
 // SIMBULOS ESPECIAIS
 TOKEN :
 {
-    < DOT : "." >
-    {
-        error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    < DOT : "." >{
+    eherro = 0;
     }
     |
-    < COMMA : "," >
-    {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    < COMMA : "," >{
+    eherro = 0;
     }
     |
-    < SEMICOLON : ";" >
-    {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    < SEMICOLON : ";" >{
+    eherro = 0;
     }
     |
-    < LPAREN : "(" >
-    {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    < TWO_POINTS : ":" >{
+    eherro = 0;
     }
     |
-    < RPAREN : ")" >
-    {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " Token: " + "\"" + image + "\"" + " Code: ");
+    < LPAREN : "(" >{
+     eherro = 0;
+     }
+    |
+    < RPAREN : ")" >{
+    eherro = 0;
     }
 }
 
@@ -360,9 +349,8 @@ TOKEN : {
         "\"",
         "'",
         " ",
+        ":",
         "(", ")",
-        "[", "]",
-        "{", "}",
         ",",
         ".",
         ";",
@@ -374,28 +362,31 @@ TOKEN : {
         "*",
         "/",
         "&",
-        "|",
         "!",
+        "|",
         "%",
         "^",
         "_"]) + >
             {
                 error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Character Found: " + "\"" + image + "\"" + " Code: ");;
                 countLexError++;
+                eherro = 1;
             }
    |
-        <INVALID_CONST_STRING_WITH_LINEBREAK:
+        <INVALID_CONST_CHAR_WITH_LINEBREAK:
         (("\"" (~ ["\""] | "\n" | "\r" )+ ("\"")) | ("'" (~ ["'"] | "\n" | "\r" )+ ("'")))>
         {
-            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid String With LineBreak: " + "\"" + image + "\"" + " Code: ");;
+            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Char With LineBreak: " + "\"" + image + "\"" + " Code: ");;
             countLexError++;
+            eherro = 1;
         }
   |
-        <INVALID_CONST_STRING_END:
-        ( ("\"" (~ ["\"", "\n", "\r"])*) | ("'" (~ ["\"", "\n", "\r"])* ))>
+        <INVALID_CONST_CHAR_END:
+        ( ("\"" (~ ["\"", "\n", "\r"])? "'") | ("'" (~ ["\"", "\n", "\r"])? "\""))>
         {
             error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid String/Character Ending: " + "\"" + image + "\"" + " Code: ");;
             countLexError++;
+            eherro = 1;
         }
   |
         <INVALID_CONST_FLOAT_SIZE:
@@ -403,6 +394,7 @@ TOKEN : {
         {
             error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Float Size: " + "\"" + image + "\"" + " Code: ");;
             countLexError++;
+            eherro = 1;
         }
   |
         <INVALID_CONST_INT_SIZE:
@@ -410,6 +402,7 @@ TOKEN : {
         {
             error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Int Size: " + "\"" + image + "\"" + " Code: ");;
             countLexError++;
+            eherro = 1;
         }
 |
        <INVALID_COMMENT_CLOSE:
@@ -417,39 +410,526 @@ TOKEN : {
        {
             error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Closing of a Comment: " + "\"" + image + "\"" + " Code: ");;
             countLexError++;
+            eherro = 1;
        }
 |
        <INVALID_IDENTIFIER:
-       (((["A"-"Z", "a"-"z"] | "_") (["A"-"Z", "a"-"z"] | "_" | ["0" - "9"] (["A"-"Z", "a"-"z"] ))* ["0" - "9"]) | ((["A"-"Z", "a"-"z"] | "_") (["A"-"Z", "a"-"z"] | "_" | ["0" - "9"] ["0" - "9"] )* (["A"-"Z", "a"-"z"] | "_") ) | (( ["0" - "9"] ) ( ["a"-"z", "A"-"Z"]  |"_"| ["0" - "9"] ( ["a"-"z", "A"-"Z"] | "_" ) )* (["a"-"z", "A"-"Z"] | "_")) ) >
+       (((["A"-"Z", "a"-"z"] | "_") (["A"-"Z", "a"-"z"] | "_" | ["0" - "9"] (["A"-"Z", "a"-"z"] ))* ["0" - "9"]) | ((["A"-"Z", "a"-"z"] | "_") (["A"-"Z", "a"-"z"] | "_" | ["0" - "9"] ["0" - "9"] (["0"-"9"])*)* (["A"-"Z", "a"-"z"] | "_") ) | (( ["0" - "9"] ) ( ["a"-"z", "A"-"Z"]  |"_"| ["0" - "9"] ( ["a"-"z", "A"-"Z"] | "_" ) )* (["a"-"z", "A"-"Z"] | "_")) ) >
        {
            error = ("Line " + input_stream.getBeginLine() + " Column " + input_stream.getBeginColumn() + " - Invalid Identifier: " + "\"" + image + "\"" + " Code: ");;
            countLexError++;
+           eherro = 1;
        }
 }
 
-JAVACODE void program(CompiladorGui gui)
-{
-Token t;
-    do
-    {
-    t = getNextToken();
-    Token st = t;
-        while ( st.specialToken != null)
-            st = st.specialToken;
-            do {
-               if ( !Menosshort ) {
-                   gui.jTextArea1.append(token_source.error + st.kind + "\n");
-                       token_source.error = "";
-               }
-               else {
-                   System.out.println(token_source.error + st.kind + "\n");
-                   token_source.error = "";
-               }
-               st = st.next;
-        } while (st != t.next);
-    } while (t.kind != prataLangConstants.EOF);
-    if(token_source.curLexState == 1){
+JAVACODE void lex(CompiladorGui gui){
+      Token t;
+      do
+      {
+          t = getNextToken();
+          Token st = t;
+          while ( st.specialToken != null)
+          st = st.specialToken;
+          do {
+              if(token_source.eherro != 0){
+                  if ( !Menosshort ) {
+                      gui.jTextArea1.append(token_source.error + st.kind + " " + im(st.kind) + "\n");
+                      token_source.error = "";
+                  }
+                  else {
+                      System.out.println(token_source.error + st.kind + " " + im(st.kind) + "\n");
+                      token_source.error = "";
+                  }
+              }
+              st = st.next;
+          } while (st != t.next);
+      } while (t.kind != prataLangConstants.EOF);
+      if(token_source.curLexState == 1){
           gui.jTextArea1.append(" Error to end Block Comment \n");
           token_source.countLexError++;
+      }
+}
+
+void program(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <MAKE>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Make" + "\n");
+        countParseError += 1;
     }
+    try{
+        <IDENT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier" + "\n");
+        countParseError += 1;
+    }
+    [declaracao(gui)] [listacomandos(gui)]
+    try{
+        <END>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <DOT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
+        countParseError += 1;
+    }
+    <EOF>
+}
+
+void declaracao(CompiladorGui gui) :
+{
+}
+{
+    declaracaoV(gui) [declaracaoC(gui)] | declaracaoC(gui) [declaracaoV(gui)]
+}
+
+void declaracaoC(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <CONST>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Constant" + "\n");
+        countParseError += 1;
+    }
+    listadeconstante(gui)
+    try{
+        <END>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <SEMICOLON>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Semicolon" + "\n");
+        countParseError += 1;
+    }
+}
+
+void listadeconstante(CompiladorGui gui) :
+{
+}
+{
+    tipoC(gui)
+    try{
+        <TWO_POINTS>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Two Points (:)" + "\n");
+        countParseError += 1;
+    }
+    listadeident(gui)
+    try{
+        <EQUAL>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Equals (=)" + "\n");
+        countParseError += 1;
+    }
+    valor(gui)
+    try{
+        <DOT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
+        countParseError += 1;
+    }
+    _listadeconstante(gui)
+}
+
+void _listadeconstante(CompiladorGui gui) :
+{
+}
+{
+    [listadeconstante(gui)]
+}
+
+void tipoC(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <INT> | <REAL> | <CHAR>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Int, Real or Char" + "\n");
+        countParseError += 1;
+    }
+
+}
+
+void listadeident(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <IDENT> _listadeident(gui)
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier" + "\n");
+        countParseError += 1;
+    }
+
+}
+
+void _listadeident(CompiladorGui gui) :
+{
+}
+{
+    //LookAhead Aqui...
+    [<COMMA> listadeident(gui)]
+    |
+    try{
+        listadeident(gui)
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Comma" + "\n");
+        countParseError += 1;
+    }
+}
+
+void valor(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <int_constant> | <float_constant> | <char_constant>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Values" + "\n");
+        countParseError += 1;
+    }
+}
+
+void declaracaoV(CompiladorGui gui) :
+{
+}
+{
+    try{
+       <VAR>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Var" + "\n");
+        countParseError += 1;
+    }
+    listadevariavel(gui)
+    try{
+        <END>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <SEMICOLON>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Semicolon" + "\n");
+        countParseError += 1;
+    }
+}
+
+void listadevariavel(CompiladorGui gui) :
+{
+}
+{
+    tipoV(gui)
+    try{
+        <TWO_POINTS>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Two Points (:)" + "\n");
+        countParseError += 1;
+    }
+    listadeident(gui)
+    try{
+        <DOT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
+        countParseError += 1;
+    }
+    _listadevariavel(gui)
+}
+
+void _listadevariavel(CompiladorGui gui) :
+{
+}
+{
+    [listadevariavel(gui)]
+}
+
+void tipoV(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <INT> | <REAL> | <CHAR> | <BOOL>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Int, Real, Char or Bool" + "\n");
+        countParseError += 1;
+    }
+}
+
+void comandoatribuaicao(CompiladorGui gui) :
+{
+}
+{
+    expressao(gui)
+    try{
+        <ASSIGN>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Assign (->)" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <IDENT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <DOT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
+        countParseError += 1;
+    }
+}
+
+void comandoentrada(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <GET>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Get" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <LPAREN>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Left Parenthesis" + "\n");
+        countParseError += 1;
+    }
+    listadeident(gui)
+    try{
+        <RPAREN>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Right Parenthesis" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <DOT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
+        countParseError += 1;
+    }
+}
+
+void comandosaida(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <PUT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Put" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <LPAREN>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Left Parenthesis" + "\n");
+        countParseError += 1;
+    }
+    listadeidenteconst(gui)
+    try{
+        <RPAREN>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Right Parenthesis" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <DOT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
+        countParseError += 1;
+    }
+}
+
+void listadeidenteconst(CompiladorGui gui) :
+{
+}
+{
+    try{
+        lic(gui) (<COMMA> lic(gui))*
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Comma" + "\n");
+        countParseError += 1;
+    }
+
+}
+
+void lic(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <IDENT> | tipoC(gui)
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier or Const Type" + "\n");
+        countParseError += 1;
+    }
+
+}
+
+void comandoselecao(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <IF>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: If" + "\n");
+        countParseError += 1;
+    }
+     elemento(gui)
+    try{
+        <THEN>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Then" + "\n");
+        countParseError += 1;
+    }
+    listacomandos(gui)
+    [<ELSE> listacomandos(gui)]
+    try{
+        <END>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <DOT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
+        countParseError += 1;
+    }
+}
+
+void comandorepeticao(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <WHILE>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: While" + "\n");
+        countParseError += 1;
+    }
+    elemento(gui)
+    try{
+        <DO>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Do" + "\n");
+        countParseError += 1;
+    }
+    listacomandos(gui)
+    try{
+        <END>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: End" + "\n");
+        countParseError += 1;
+    }
+    try{
+        <DOT>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
+        countParseError += 1;
+    }
+}
+
+void listacomandos(CompiladorGui gui) :
+{
+}
+{
+    comandos(gui) [listacomandos(gui)]
+}
+
+void comandos(CompiladorGui gui) :
+{
+}
+{
+    comandoatribuaicao(gui) | comandoentrada(gui) | comandorepeticao(gui) | comandosaida(gui) | comandoselecao(gui)
+}
+
+void elemento(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <IDENT> | <int_constant> | <float_constant> | <char_constant> | <TRUE> | <FALSE> | [<NOT>] <LPAREN> expressao(gui) <RPAREN>
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Element" + "\n");
+        countParseError += 1;
+    }
+
+}
+
+void expressao(CompiladorGui gui) :
+{
+}
+{
+    expressaoaroulo(gui) [_expressao(gui)]
+}
+
+void _expressao(CompiladorGui gui) :
+{
+}
+{
+    try{
+        <EQUAL> expressaoaroulo(gui) | <DIFFERENT> expressaoaroulo(gui) | <BIGGER> expressaoaroulo(gui) | <MINOR> expressaoaroulo(gui) | <BIGGER_EQUAL> expressaoaroulo(gui) | <MINOR_EQUAL> expressaoaroulo(gui)
+    }catch(Exception e){
+        gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Arithmetic or Logical operators" + "\n");
+        countParseError += 1;
+    }
+
+}
+
+void expressaoaroulo(CompiladorGui gui) :
+{
+}
+{
+    termo2(gui) [menorP(gui)]
+}
+
+void menorP(CompiladorGui gui) :
+{
+}
+{
+    <PLUS> expressaoaroulo(gui) | <MINUS> expressaoaroulo(gui) | <OR> expressaoaroulo(gui)
+}
+
+void termo2(CompiladorGui gui) :
+{
+}
+{
+    termo1(gui) [mediaP(gui)]
+}
+
+void mediaP(CompiladorGui gui) :
+{
+}
+{
+    <MULTIPLICATION> termo2(gui) | <DIVISION> termo2(gui) | <ENTIRE_DIVISION> termo2(gui) | <DIVISION_REST> termo2(gui) | <END_LOGIC> termo2(gui)
+}
+
+void termo1(CompiladorGui gui) :
+{
+}
+{
+    elemento(gui) [maiorP(gui)]
+}
+
+void maiorP(CompiladorGui gui) :
+{
+}
+{
+    <POTENCY> termo1(gui)
 }

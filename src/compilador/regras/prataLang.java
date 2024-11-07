@@ -4,12 +4,24 @@ import java.io.*;
 import java.util.Objects;
 
 import compilador.telas.CompiladorGui;
+import java.util.HashMap;
+import java.util.Stack;
 public class prataLang implements prataLangConstants {
 
   final static String Version = "PrataLang Compiler - Version 1.0 - 2024";
   boolean Menosshort = false;
   int countParseError = 0;
   String error_s = "";
+
+  Integer pointer = 1;
+  String context = "";
+
+  int VT  = 0, VP = 0;
+  int tipo = 0 ;
+
+  Stack pilha = new Stack<Integer>();
+  Stack instructionArea = new Stack<InstructionArea>();
+  HashMap simbolsTable = new HashMap<String, Auxst>();
 
   public static void main(String[] args) throws ParseException {
     String filename = ""; // nome do arquivo a ser analizado
@@ -167,6 +179,7 @@ public class prataLang implements prataLangConstants {
       }
       try {
         jj_consume_token(IDENT);
+        two();
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier" + "\n");
         countParseError += 1;
@@ -207,6 +220,7 @@ public class prataLang implements prataLangConstants {
       }
       try {
         jj_consume_token(DOT);
+        one();
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
         countParseError += 1;
@@ -258,6 +272,7 @@ public class prataLang implements prataLangConstants {
     try {
       try {
         jj_consume_token(CONST);
+        three();
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Constant" + "\n");
         countParseError += 1;
@@ -291,6 +306,7 @@ public class prataLang implements prataLangConstants {
         countParseError += 1;
       }
       listadeident(gui);
+      four();
       try {
         jj_consume_token(EQUAL);
       } catch (Exception e) {
@@ -298,6 +314,7 @@ public class prataLang implements prataLangConstants {
         countParseError += 1;
       }
       valor(gui);
+      five();
       try {
         jj_consume_token(DOT);
       } catch (Exception e) {
@@ -335,12 +352,15 @@ public class prataLang implements prataLangConstants {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case INT:
           jj_consume_token(INT);
+          seven();
           break;
         case REAL:
           jj_consume_token(REAL);
+          eight();
           break;
         case CHAR:
           jj_consume_token(CHAR);
+          nine();
           break;
         default:
           jj_la1[6] = jj_gen;
@@ -361,6 +381,7 @@ public class prataLang implements prataLangConstants {
     try {
       try {
         jj_consume_token(IDENT);
+        eleven();
         _listadeident(gui);
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier" + "\n");
@@ -421,6 +442,7 @@ public class prataLang implements prataLangConstants {
     try {
       try {
         jj_consume_token(VAR);
+        six();
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Var" + "\n");
         countParseError += 1;
@@ -454,6 +476,7 @@ public class prataLang implements prataLangConstants {
         countParseError += 1;
       }
       listadeident(gui);
+      four();
       try {
         jj_consume_token(DOT);
       } catch (Exception e) {
@@ -492,15 +515,19 @@ public class prataLang implements prataLangConstants {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case INT:
           jj_consume_token(INT);
+          seven();
           break;
         case REAL:
           jj_consume_token(REAL);
+          eight();
           break;
         case CHAR:
           jj_consume_token(CHAR);
+          nine();
           break;
         case BOOL:
           jj_consume_token(BOOL);
+          ten();
           break;
         default:
           jj_la1[10] = jj_gen;
@@ -528,6 +555,7 @@ public class prataLang implements prataLangConstants {
       }
       try {
         jj_consume_token(IDENT);
+        twelve();
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Identifier" + "\n");
         countParseError += 1;
@@ -548,6 +576,7 @@ public class prataLang implements prataLangConstants {
     try {
       try {
         jj_consume_token(GET);
+        thirteen();
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Get" + "\n");
         countParseError += 1;
@@ -614,6 +643,7 @@ public class prataLang implements prataLangConstants {
     try {
       try {
         lic(gui);
+        fourteen();
         label_1:
         while (true) {
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -643,11 +673,27 @@ public class prataLang implements prataLangConstants {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case IDENT:
           jj_consume_token(IDENT);
+          fifteen();
           break;
         case INT:
+          jj_consume_token(INT);
+          sixteen();
+          break;
         case REAL:
+          jj_consume_token(REAL);
+          seventeen();
+          break;
         case CHAR:
-          tipoC(gui);
+          jj_consume_token(CHAR);
+          eighteen();
+          break;
+        case TRUE:
+          jj_consume_token(TRUE);
+          nineteen();
+          break;
+        case FALSE:
+          jj_consume_token(FALSE);
+          twenty();
           break;
         default:
           jj_la1[12] = jj_gen;
@@ -672,7 +718,8 @@ public class prataLang implements prataLangConstants {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: If" + "\n");
         countParseError += 1;
       }
-      elemento(gui);
+      expressao(gui);
+      twentyone();
       try {
         jj_consume_token(THEN);
       } catch (Exception e) {
@@ -683,6 +730,7 @@ public class prataLang implements prataLangConstants {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case ELSE:
         jj_consume_token(ELSE);
+        twentythree();
         listacomandos(gui);
         break;
       default:
@@ -697,6 +745,7 @@ public class prataLang implements prataLangConstants {
       }
       try {
         jj_consume_token(DOT);
+        twentytwo();
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
         countParseError += 1;
@@ -711,11 +760,13 @@ public class prataLang implements prataLangConstants {
     try {
       try {
         jj_consume_token(WHILE);
+        twentyfour();
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: While" + "\n");
         countParseError += 1;
       }
-      elemento(gui);
+      expressao(gui);
+      twentyfive();
       try {
         jj_consume_token(DO);
       } catch (Exception e) {
@@ -731,6 +782,7 @@ public class prataLang implements prataLangConstants {
       }
       try {
         jj_consume_token(DOT);
+        twentysix();
       } catch (Exception e) {
         gui.jTextArea1.append("Line: " + token_source.input_stream.getBeginLine() + " Column: " + (token_source.input_stream.getBeginColumn() - 1) + " Expected: Dot" + "\n");
         countParseError += 1;
@@ -811,21 +863,27 @@ public class prataLang implements prataLangConstants {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case IDENT:
           jj_consume_token(IDENT);
+          fifteen();
           break;
         case int_constant:
           jj_consume_token(int_constant);
+          sixteen();
           break;
         case float_constant:
           jj_consume_token(float_constant);
+          seventeen();
           break;
         case char_constant:
           jj_consume_token(char_constant);
+          eighteen();
           break;
         case TRUE:
           jj_consume_token(TRUE);
+          nineteen();
           break;
         case FALSE:
           jj_consume_token(FALSE);
+          twenty();
           break;
         case NOT:
         case LPAREN:
@@ -840,6 +898,7 @@ public class prataLang implements prataLangConstants {
           jj_consume_token(LPAREN);
           expressao(gui);
           jj_consume_token(RPAREN);
+          fourtytwo();
           break;
         default:
           jj_la1[17] = jj_gen;
@@ -885,26 +944,32 @@ public class prataLang implements prataLangConstants {
         case EQUAL:
           jj_consume_token(EQUAL);
           expressaoaroulo(gui);
+          twentyseven();
           break;
         case DIFFERENT:
           jj_consume_token(DIFFERENT);
           expressaoaroulo(gui);
+          twentyeight();
           break;
         case BIGGER:
           jj_consume_token(BIGGER);
           expressaoaroulo(gui);
+          twentynine();
           break;
         case MINOR:
           jj_consume_token(MINOR);
           expressaoaroulo(gui);
+          thirty();
           break;
         case BIGGER_EQUAL:
           jj_consume_token(BIGGER_EQUAL);
           expressaoaroulo(gui);
+          thirtyone();
           break;
         case MINOR_EQUAL:
           jj_consume_token(MINOR_EQUAL);
           expressaoaroulo(gui);
+          thirtytwo();
           break;
         default:
           jj_la1[19] = jj_gen;
@@ -945,15 +1010,21 @@ public class prataLang implements prataLangConstants {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case PLUS:
         jj_consume_token(PLUS);
-        expressaoaroulo(gui);
+        termo2(gui);
+        thirtythree();
+        menorP(gui);
         break;
       case MINUS:
         jj_consume_token(MINUS);
-        expressaoaroulo(gui);
+        termo2(gui);
+        thirtyfour();
+        menorP(gui);
         break;
       case OR:
         jj_consume_token(OR);
-        expressaoaroulo(gui);
+        termo2(gui);
+        thirtyfive();
+        menorP(gui);
         break;
       default:
         jj_la1[21] = jj_gen;
@@ -992,23 +1063,33 @@ public class prataLang implements prataLangConstants {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case MULTIPLICATION:
         jj_consume_token(MULTIPLICATION);
-        termo2(gui);
+        termo1(gui);
+        thirtysix();
+        mediaP(gui);
         break;
       case DIVISION:
         jj_consume_token(DIVISION);
-        termo2(gui);
+        termo1(gui);
+        thirtyseven();
+        mediaP(gui);
         break;
       case ENTIRE_DIVISION:
         jj_consume_token(ENTIRE_DIVISION);
-        termo2(gui);
+        termo1(gui);
+        thirtyeight();
+        mediaP(gui);
         break;
       case DIVISION_REST:
         jj_consume_token(DIVISION_REST);
-        termo2(gui);
+        termo1(gui);
+        thirtynine();
+        mediaP(gui);
         break;
       case END_LOGIC:
         jj_consume_token(END_LOGIC);
-        termo2(gui);
+        termo1(gui);
+        fourty();
+        mediaP(gui);
         break;
       default:
         jj_la1[23] = jj_gen;
@@ -1024,6 +1105,7 @@ public class prataLang implements prataLangConstants {
     trace_call("termo1");
     try {
       elemento(gui);
+      fourtyone();
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case POTENCY:
         maiorP(gui);
@@ -1067,7 +1149,7 @@ public class prataLang implements prataLangConstants {
       jj_la1_0 = new int[] {0x84000,0xa700000,0x4000,0x80000,0x84000,0x38000,0x38000,0x0,0x0,0x78000,0x78000,0x0,0x38000,0x1000000,0xa700000,0xa700000,0x8000000,0x8000000,0x80000000,0x80000000,0x10000000,0x10000000,0x20000000,0x20000000,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x85f000,0x0,0x0,0x0,0x0,0x0,0x100000,0x7000,0x0,0x0,0x100000,0x40000,0x0,0x85f000,0x85f000,0x0,0x85f000,0x1f,0x1f,0x60,0x60,0xd80,0xd80,0x200,};
+      jj_la1_1 = new int[] {0x0,0x85f000,0x0,0x0,0x0,0x0,0x0,0x100000,0x7000,0x0,0x0,0x100000,0x58000,0x0,0x85f000,0x85f000,0x0,0x85f000,0x1f,0x1f,0x60,0x60,0xd80,0xd80,0x200,};
    }
 
   /** Constructor with InputStream. */
@@ -1267,5 +1349,250 @@ public class prataLang implements prataLangConstants {
       System.out.println(" at line " + t1.beginLine + " column " + t1.beginColumn + ">; Expected token: <" + tokenImage[t2] + ">");
     }
   }
+
+  private void one ()  {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"STP", 0);
+    instructionArea.add(instruction);
+  }
+  private void two () {
+    Auxst auxst = new Auxst(0); //category e atributo
+    simbolsTable.put(token, auxst);
+  }
+  private void three () {
+    context = "const";
+  }
+  private void four () {
+    if( tipo == 1 || tipo == 5 ) {
+      InstructionArea instruction = new InstructionArea<Integer>(pointer, "ALI", VP);
+      instructionArea.add(instruction);
+      pointer++;
+    }else if( tipo == 2 || tipo == 6 ) {
+      InstructionArea instruction = new InstructionArea<Integer>(pointer, "ALR", VP);
+      instructionArea.add(instruction);
+      pointer++;
+    }else if( tipo == 3 || tipo == 7 ) {
+      InstructionArea instruction = new InstructionArea<Integer>(pointer, "ALS", VP);
+      instructionArea.add(instruction);
+      pointer++;
+    }else if( tipo == 4 ) {
+      InstructionArea instruction = new InstructionArea<Integer>(pointer, "ALB", VP);
+      instructionArea.add(instruction);
+      pointer++;
+    }if (tipo == 1 ||tipo == 2 ||tipo == 3 ||tipo == 4 ){
+      VP = 0;
+    }
+
+
+  }
+
+  private void five () {
+    switch (tipo){
+      case 5:
+        InstructionArea instruction = new InstructionArea<Integer>(pointer, "LDI", Integer.valueOf(token.image));
+        instructionArea.add(instruction);
+        pointer++;
+        break;
+      case 6:
+        InstructionArea instruction1 = new InstructionArea<Float>(pointer, "LDR", Float.valueOf(token.image));
+        instructionArea.add(instruction1);
+        pointer++;
+        break;
+      case 7:
+        InstructionArea instruction2 = new InstructionArea<String>(pointer, "LDS", token.image);
+        instructionArea.add(instruction2);
+        pointer++;
+        break;
+    }
+    InstructionArea instruction3 = new InstructionArea<Integer>(pointer, "STC", VP);
+    instructionArea.add(instruction3);
+    pointer++;
+    VP = 0;
+
+  }
+  private void six () {
+    context = "var";
+  }
+  private void seven () {
+    if (context == "var"){
+      tipo = 1;
+    }else {
+      tipo = 5;
+    }
+  }
+  private void eight () {
+    if (context == "var"){
+      tipo = 2;
+    }else {
+      tipo = 6;
+    }
+  }
+
+  private void nine () {
+    if (context == "var"){
+      tipo = 3;
+    }else {
+      tipo = 7;
+    }
+  }
+  private void ten (){
+      tipo = 4;
+  }
+  private void eleven () {
+    if ( context == "const" || context == "var" ) {
+      if ( simbolsTable.containsKey(token.image)){
+        System.out.println("deu erro 1 ");
+      }else {
+        VT++;
+        VP++;
+        simbolsTable.put(token.image,  new Auxst(tipo,VT) );
+
+      }
+    } else if ( context == "data entry") {
+      if ( simbolsTable.containsKey(token.image)){
+        Auxst aux = (Auxst) simbolsTable.get(token.image);
+        if ( aux.getCategory() == 1  || aux.getCategory() == 2  || aux.getCategory() == 3  || aux.getCategory() == 4 ) {
+          InstructionArea instruction = new InstructionArea<Integer>(pointer , "REA" , aux.getCategory());
+          instructionArea.add(instruction);
+          pointer++;
+          InstructionArea instruction2 = new InstructionArea<Integer>(pointer , "STR" , aux.getAttribute());
+          instructionArea.add(instruction2);
+          pointer++;
+        } else{
+          System.out.println("deu erro 2");
+        }
+      }else {
+        System.out.println("deu erro 3");
+      }
+    }
+
+  }
+  private void twelve () {
+    
+  }
+  private void thirteen () {
+    context = "data entry";
+  }
+  private void fourteen () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"WRT", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void fifteen () {
+    
+  }
+  private void sixteen () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"LDI", Integer.valueOf(token.image));
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void seventeen () {
+    InstructionArea instruction = new InstructionArea<Float>(pointer,"LDR", Float.valueOf(token.image));
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void eighteen () {
+    InstructionArea instruction = new InstructionArea<String>(pointer,"LDS", token.image);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void nineteen () {
+    InstructionArea instruction = new InstructionArea<Boolean>(pointer,"LDB", true);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void twenty () {
+    InstructionArea instruction = new InstructionArea<Boolean>(pointer,"LDB", false);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void twentyone () {
+    
+  }
+  private void twentytwo () {
+    
+  }
+  private void twentythree () {
+    
+  }
+  private void twentyfour () {
+    
+  }
+  private void twentyfive () {
+    
+  }
+  private void twentysix () {
+    
+  }
+  private void twentyseven () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"EQL", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void twentyeight () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"DIF", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void twentynine () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"SMR", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void thirty () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"BGR", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void thirtyone () {
+    
+  }
+  private void thirtytwo () {
+    
+  }
+  private void thirtythree () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"ADD", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void thirtyfour () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"SUB", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void thirtyfive () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"OR", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void thirtysix () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"MUL", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void thirtyseven () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"DIV", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void thirtyeight () {
+    
+  }
+  private void thirtynine () {
+    
+  }
+  private void fourty () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"AND", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+  private void fourtyone () {
+    
+  }
+  private void fourtytwo () {
+    InstructionArea instruction = new InstructionArea<Integer>(pointer,"NOT", 0);
+    instructionArea.add(instruction);
+    pointer++;
+  }
+
 
 }
