@@ -2,14 +2,16 @@ package compilador.regras;
 
 public class InstructionArea<T> {
 
-  private Integer pointer = 0;
   private String instruction = "";
   private T parameter;
 
-  public InstructionArea(Integer pointer, String instruction, T parameter) {
-    this.pointer = pointer;
+  public InstructionArea(String instruction, T parameter) {
     this.instruction = instruction;
     this.parameter = parameter;
+  }
+
+  public InstructionArea(String instruction) {
+    this.instruction = instruction;
   }
 
   public String getInstruction() {
@@ -18,14 +20,6 @@ public class InstructionArea<T> {
 
   public void setInstruction(String instruction) {
     this.instruction = instruction;
-  }
-
-  public Integer getPointer() {
-    return pointer;
-  }
-
-  public void setPointer(Integer pointer) {
-    this.pointer = pointer;
   }
 
   public T getParameter() {

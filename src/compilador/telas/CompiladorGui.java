@@ -451,8 +451,10 @@ public class CompiladorGui extends javax.swing.JFrame {
             Salvar_Como();
         }
         //Essa linha faz a integração entre o prataLang e o Gui, até utilizar o javacc no regras.jj ficará com erro ->
-        parser.Compile(filepath, parser, CompiladorGui.this);
+        prataLang.Compile(filepath, parser, CompiladorGui.this);
 
+        tabela.setVisible(true);
+        tabela.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }//GEN-LAST:event_ButtonCompilarActionPerformed
 
     private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
@@ -777,5 +779,6 @@ public class CompiladorGui extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     public javax.swing.JTextArea jTextArea1;
     private javax.swing.JSplitPane jSplitPane;
+    public Table tabela = new Table();
     // End of variables declaration//GEN-END:variables
 }

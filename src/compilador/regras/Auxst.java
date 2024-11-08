@@ -1,6 +1,6 @@
 package compilador.regras;
 
-public class Auxst {
+public class Auxst <T>{
   Integer category ;
   Integer attribute ;
 
@@ -27,4 +27,5 @@ public class Auxst {
   public void setCategory(Integer category) {
     this.category = category;
   }
+
 }
