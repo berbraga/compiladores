@@ -1,6 +1,6 @@
 package compilador.regras;
 
-public class Auxst <T>{
+public class Auxst{
   Integer category ;
   Integer attribute ;
 

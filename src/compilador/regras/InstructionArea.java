@@ -1,11 +1,11 @@
 package compilador.regras;
 
-public class InstructionArea<T> {
+public class InstructionArea {
 
   private String instruction = "";
-  private T parameter;
+  private String parameter;
 
-  public InstructionArea(String instruction, T parameter) {
+  public InstructionArea(String instruction, String parameter) {
     this.instruction = instruction;
     this.parameter = parameter;
   }
@@ -22,11 +22,11 @@ public class InstructionArea<T> {
     this.instruction = instruction;
   }
 
-  public T getParameter() {
+  public String getParameter() {
     return parameter;
   }
 
-  public void setParameter(T parameter) {
+  public void setParameter(String parameter) {
     this.parameter = parameter;
   }
 }

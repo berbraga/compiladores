@@ -443,6 +443,7 @@ public class CompiladorGui extends javax.swing.JFrame {
     private void ButtonCompilarActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_ButtonCompilarActionPerformed
         // TODO add your handling code here:
 
+
         jTextArea1.setText("");
         if(filepath != null){
             SalvarArquivo(filepath);
@@ -454,7 +455,7 @@ public class CompiladorGui extends javax.swing.JFrame {
         prataLang.Compile(filepath, parser, CompiladorGui.this);
 
         tabela.setVisible(true);
-        tabela.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        tabela.setDefaultCloseOperation(HIDE_ON_CLOSE);
     }//GEN-LAST:event_ButtonCompilarActionPerformed
 
     private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
