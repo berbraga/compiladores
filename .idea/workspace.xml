@@ -7,7 +7,7 @@
     <list default="true" id="940f40cd-14bd-4ece-917e-497ac6b1dd39" name="Changes" comment="Matheus: Tratamento de Erros relativamente Funcionando. (Faltam Algumas Coisas)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLang.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/prataLang.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/src/compilador/regras/regras.jj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/regras.jj" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiladores/compilador/regras/regras.jj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,32 +44,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Compilador.executor": "Debug",
-    "Application.CompiladorGui.executor": "Run",
-    "Application.Salvar.executor": "Run",
-    "Application.compilador.executor": "Run",
-    "Application.prataLang.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/berna/Área de Trabalho/compiladores/compiladores/compiladores2.iml",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Compilador.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.CompiladorGui.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Salvar.executor&quot;: &quot;Run&quot;,
+    &quot;Application.compilador.executor&quot;: &quot;Run&quot;,
+    &quot;Application.prataLang.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/berna/Área de Trabalho/compiladores/compiladores/compiladores2.iml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\User\Documents\compiladores\src\compilador\telas" />
@@ -135,7 +135,8 @@
       <workItem from="1733437010345" duration="1239000" />
       <workItem from="1733438374618" duration="5602000" />
       <workItem from="1733446339734" duration="1234000" />
-      <workItem from="1733479886601" duration="2309000" />
+      <workItem from="1733479886601" duration="2375000" />
+      <workItem from="1733482358542" duration="297000" />
     </task>
     <task id="LOCAL-00001" summary="Matheus: Arquivo .jj com algumas formas de erro, e CompiladorGui integrado e com o .jj com comeários para quando for feito o uso do javacc no regras.jj">
       <option name="closed" value="true" />
@@ -185,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733447620466</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Matheus: Tratamento de Erros relativamente Funcionando. (Faltam Algumas Coisas)">
+      <option name="closed" value="true" />
+      <created>1733482305220</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733482305220</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,26 +240,6 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
-          <line>2571</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
-          <line>2642</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
-          <line>2452</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
-          <line>2582</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
           <line>1305</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
@@ -266,8 +255,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
-          <line>2654</line>
+          <line>2452</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
+          <line>2582</line>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
+          <line>2654</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
+          <line>2571</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/compilador/regras/prataLang.java</url>
+          <line>2642</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
