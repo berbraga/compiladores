@@ -1204,7 +1204,7 @@ private void two (CompiladorGui gui): {
   private void twentysix (CompiladorGui gui): {
     Integer aux = (Integer) pilha.pop();
     InstructionArea i = (InstructionArea) instructionArea.get(aux);
-    i.setParameter(String.valueOf(pointer));
+    i.setParameter(String.valueOf(pointer+1));
     instructionArea.replace(aux, i);
     Integer aux2 = (Integer) pilha.pop();
     InstructionArea instruction = new InstructionArea("JMP", String.valueOf(aux2));
