@@ -223,15 +223,11 @@ public class CompiladorGui extends javax.swing.JFrame {
         TextArea.setCaretColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(TextArea);
 
-        jTextArea1.setEditable(false);
+        jTextArea1.setEditable(true);
         jTextArea1.setBackground(new java.awt.Color(51, 51, 51));
         jTextArea1.setColumns(20);
         jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setRows(5);
-        jTextArea1.setToolTipText("");
-        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextArea1.setHighlighter(null);
-        jTextArea1.setKeymap(null);
         jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
